@@ -115,7 +115,7 @@
   </div>
 </div>
 <script>
-function handleWL(){const i=document.querySelector('#wl-f input[name="email"]'),m=document.getElementById('wl-msg'),e=i.value.trim();if(!e||!e.includes('@')||!e.includes('.')){m.textContent='Please enter a valid email.';m.style.color='var(--red)';return}m.textContent=`We'll notify ${e} when Pro launches.`;m.style.color='var(--green)';i.value='';const ls=JSON.parse(localStorage.getItem('yansii_wl')||'[]');ls.push({email:e,ts:Date.now()});localStorage.setItem('yansii_wl',JSON.stringify(ls))}
+function handleWL(){const i=document.querySelector('#wl-f input[name="email"]'),m=document.getElementById('wl-msg'),e=i.value.trim();if(!e||!e.includes('@')||!e.includes('.')){m.textContent='Please enter a valid email.';m.style.color='var(--red)';return}m.textContent='Submitting...';m.style.color='var(--mut)';fetch('https://script.google.com/macros/s/AKfycbwI4dGnODWI4lQtiev6GI1SRzqN0idPjUrFFPhS6V_WCAGup-lxaSqcETVricoeIRdP/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,source:'yansii.in/coming-soon'})}).then(()=>{m.textContent="You're on the list!";m.style.color='var(--green)';i.value=''}).catch(()=>{m.textContent='Something went wrong. Email hello@yansii.in instead.';m.style.color='var(--red)'})}
 document.querySelector('#wl-f input')?.addEventListener('keydown',e=>{if(e.key==='Enter')handleWL()});
 </script>
 </body>
