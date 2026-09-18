@@ -66,6 +66,19 @@
     @keyframes floatUp{0%{opacity:0;transform:translateY(0)}10%{opacity:.3}90%{opacity:.3}100%{opacity:0;transform:translateY(-120px)}}
     @media(max-width:860px){.tail-path{right:-100px;opacity:.05}.hibiscus{left:-60px;opacity:.04}}
 
+    /* Top-center abstract motif — twin lobes + center node + curling connector */
+    .begin-mark{position:fixed;top:72px;left:50%;transform:translateX(-50%);width:180px;height:180px;opacity:0;pointer-events:none;z-index:0;animation:beginFade 2.5s ease-out 1.8s forwards}
+    @keyframes beginFade{to{opacity:.05}}
+    .begin-mark .lobe{animation:lobeSettle 2s ease-out forwards;opacity:0;transform-origin:center}
+    .begin-mark .lobe-l{animation-delay:1.8s}
+    .begin-mark .lobe-r{animation-delay:2s}
+    @keyframes lobeSettle{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+    .begin-mark .connector{stroke-dasharray:200;stroke-dashoffset:200;animation:connectorDraw 2s ease-out 2.3s forwards}
+    @keyframes connectorDraw{to{stroke-dashoffset:0}}
+    .begin-mark .status-dot{opacity:0;animation:dotIn .6s ease-out 3s forwards}
+    @keyframes dotIn{to{opacity:1}}
+    @media(max-width:760px){.begin-mark{display:none}}
+
     .priv-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(88,166,255,.07);border:1px solid rgba(88,166,255,.14);border-radius:100px;padding:5px 14px 5px 9px;font-size:11.5px;color:var(--blue);font-weight:500;margin-bottom:22px;animation:fadeDown .6s ease-out both}
     @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
     .hero h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:18px;animation:fadeUp .7s ease-out .1s both}
@@ -82,17 +95,18 @@
     .btn-s:hover{background:rgba(240,246,252,.08);border-color:var(--mut);color:var(--tx);transform:translateY(-2px)}
     .hero-note{font-size:11.5px;color:var(--dim);animation:fadeUp .7s ease-out .4s both}
 
-    /* ═══ TERMINAL ═══ */
+    /* ═══ DEMO VIDEO ═══ */
     .term-wrap{animation:fadeUp .8s ease-out .45s both}
+    .demo-label{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;color:var(--blue);margin-bottom:10px;letter-spacing:.03em}
     .term{border-radius:12px;overflow:hidden;border:1px solid var(--brdl);background:var(--card);box-shadow:0 8px 40px rgba(0,0,0,.35)}
     .term-bar{background:var(--bg2);border-bottom:1px solid var(--brd);padding:9px 14px;display:flex;align-items:center;gap:7px}
     .term-dot{width:9px;height:9px;border-radius:50%}
     .term-title{margin-left:8px;font-size:11px;color:var(--dim);font-family:'JetBrains Mono',monospace}
-    .term-body{padding:16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;min-height:270px;background:var(--bg);overflow:hidden}
-    .term-body .cmd{color:var(--green)}.term-body .dm{color:var(--dim)}.term-body .wt{color:var(--tx)}
-    .term-body .t-pot{color:var(--gray)}.term-body .t-obs{color:var(--blue)}.term-body .t-pro{color:var(--purple)}
-    .term-line{opacity:0;transform:translateY(4px);animation:typeLine .3s ease-out forwards}
-    @keyframes typeLine{to{opacity:1;transform:translateY(0)}}
+    .video-frame{position:relative}
+    .demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--bg)}
+    .mute-toggle{position:absolute;right:12px;bottom:12px;width:34px;height:34px;border-radius:50%;background:rgba(13,17,23,.72);backdrop-filter:blur(6px);border:1px solid rgba(240,246,252,.14);color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+    .mute-toggle:hover{background:rgba(13,17,23,.9);border-color:rgba(240,246,252,.28)}
+    .walkthrough-btn{margin-top:14px;font-size:12.5px!important;padding:9px 18px!important}
 
     /* ═══ SECTIONS ═══ */
     .section{padding:88px 24px;position:relative;z-index:1;background:var(--bg)}
@@ -160,6 +174,9 @@
     .byok-note strong{color:var(--tx2)}
     .notify-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:13px;font-weight:600;color:var(--red);text-decoration:none;transition:gap .2s}
     .notify-link:hover{gap:10px}
+    .pro-video-frame{position:relative;border-radius:10px;overflow:hidden;margin:16px 0 18px;border:1px solid rgba(232,64,58,.18)}
+    .pro-video-frame .demo-video{aspect-ratio:16/9}
+    .pro-video-badge{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.05em;padding:4px 9px;border-radius:5px;background:rgba(13,17,23,.85);backdrop-filter:blur(6px);color:var(--red);border:1px solid rgba(232,64,58,.3)}
 
     /* ═══ STEPS ═══ */
     .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -233,6 +250,17 @@
   <div class="hibiscus">
     <svg viewBox="0 0 200 200" fill="none"><ellipse class="petal p1" cx="100" cy="55" rx="22" ry="42" fill="#e8403a" opacity=".7" style="--r:0deg"/><ellipse class="petal p2" cx="142" cy="82" rx="22" ry="42" fill="#e8403a" opacity=".6" style="--r:72deg"/><ellipse class="petal p3" cx="126" cy="128" rx="22" ry="42" fill="#e8403a" opacity=".5" style="--r:144deg"/><ellipse class="petal p4" cx="74" cy="128" rx="22" ry="42" fill="#e8403a" opacity=".5" style="--r:216deg"/><ellipse class="petal p5" cx="58" cy="82" rx="22" ry="42" fill="#e8403a" opacity=".6" style="--r:288deg"/></svg>
   </div>
+
+  <div class="begin-mark">
+    <svg viewBox="0 0 260 260" fill="none">
+      <path class="lobe lobe-l" d="M75 90 Q25 75, 20 130 Q17 180, 65 195 Q100 192, 102 150 Q101 115, 75 90Z" stroke="#e8403a" stroke-width="3" fill="none"/>
+      <path class="lobe lobe-r" d="M185 90 Q235 75, 240 130 Q243 180, 195 195 Q160 192, 158 150 Q159 115, 185 90Z" stroke="#e8403a" stroke-width="3" fill="none"/>
+      <circle cx="130" cy="130" r="42" stroke="#e8403a" stroke-width="3" fill="none" opacity=".8"/>
+      <path class="connector" d="M130 172 Q123 205, 138 228 Q150 248, 133 258" stroke="#e8403a" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <circle class="status-dot" cx="130" cy="72" r="4" fill="#e8403a"/>
+      <ellipse cx="131" cy="260" rx="6" ry="7" fill="#f0883e" opacity=".8"/>
+    </svg>
+  </div>
 </div>
 
 <!-- ═══ NAV ═══ -->
@@ -291,15 +319,39 @@
     </div>
 
     <div class="term-wrap">
-      <div class="term" role="img" aria-label="Simulated scan output showing potential and observed findings">
+      <p class="demo-label">See it in action</p>
+      <div class="term">
         <div class="term-bar">
           <span class="term-dot" style="background:#ff5f57"></span>
           <span class="term-dot" style="background:#febc2e"></span>
           <span class="term-dot" style="background:#28c840"></span>
-          <span class="term-title">yansii — passive scan</span>
+          <span class="term-title">yansii — demo</span>
         </div>
-        <div class="term-body" id="terminal"></div>
+        <div class="video-frame">
+          <video
+            id="hero-video"
+            class="demo-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="assets/demo-poster.jpg"
+            aria-label="YANSII demo — passive scanning and the extension in use, muted, looping">
+            <source src="assets/yansii-demo.mp4" type="video/mp4">
+            Your browser doesn't support embedded video.
+            <a href="https://youtu.be/WCo2uj1ySxk" target="_blank" rel="noopener">Watch on YouTube</a> instead.
+          </video>
+          <button type="button" id="hero-mute-btn" class="mute-toggle" aria-pressed="true" aria-label="Unmute video">
+            <svg class="icon-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
+          </button>
+        </div>
       </div>
+      <a href="https://youtu.be/WCo2uj1ySxk" target="_blank" rel="noopener" class="btn btn-s walkthrough-btn">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Full walkthrough on YouTube
+      </a>
     </div>
   </div>
 </section>
@@ -405,6 +457,21 @@
           <span class="tt-badge tt-pro">PRO — COMING SOON</span>
           <span class="tt-price">$19/mo</span>
         </div>
+
+        <div class="pro-video-frame">
+          <video
+            class="demo-video"
+            controls
+            preload="metadata"
+            poster="assets/pro-poster.jpg"
+            playsinline
+            aria-label="YANSII Pro preview — coming soon">
+            <source src="assets/yansii-pro-teaser.mp4" type="video/mp4">
+            Your browser doesn't support embedded video.
+          </video>
+          <span class="pro-video-badge">PREVIEW — NOT YET AVAILABLE</span>
+        </div>
+
         <ul class="pro-list">
           <li><span class="dot"></span><span><span class="fn">AI Copilot</span> — real-time suggestions using your own API key</span></li>
           <li><span class="dot"></span><span><span class="fn">Active validation</span> — promotes findings to "confirmed" with captured evidence</span></li>
@@ -418,7 +485,7 @@
         </ul>
 
         <div class="trial-note">
-          <strong>14-day free trial</strong> when Pro launches — full access, no credit card to start.
+          <strong>Coming soon — 14-day free trial.</strong> Full access, no credit card to start. Not available to purchase yet.
         </div>
         <div class="byok-note">
           <strong>AI features use your own API key</strong> (Anthropic, OpenAI, Groq, or OpenRouter). YANSII doesn't charge for AI usage — only the subscription. Typical cost is $5–15/month depending on use.
@@ -614,21 +681,19 @@
 </footer>
 
 <script>
-// Passive-scan demo — free tier only, three-tier labeling, no trophy data
-const lines=[
-  {t:'<span class="cmd">$</span> <span class="wt">yansii — passive scan running…</span>',d:400},
-  {t:'<span class="dm">[SCAN]</span> 46 checks active',d:500},
-  {t:'<span class="t-obs">[OBSERVED]</span> X-Frame-Options header missing',d:320},
-  {t:'<span class="t-obs">[OBSERVED]</span> Cookie "session" missing HttpOnly flag',d:300},
-  {t:'<span class="t-pot">[POTENTIAL]</span> Reflected parameter near a DOM sink',d:340},
-  {t:'<span class="t-pot">[POTENTIAL]</span> CORS header allows credentialed cross-origin read',d:360},
-  {t:'<span class="dm">───────────────────────────────────</span>',d:200},
-  {t:'<span class="wt">9 findings</span> <span class="dm">·</span> 4 observed <span class="dm">·</span> 5 potential <span class="dm">·</span> 0 confirmed',d:400},
-  {t:'<span class="t-pro dm">[PRO]</span> <span class="dm">active validation would confirm these with evidence</span>',d:0}
-];
-function runTerm(){const el=document.getElementById('terminal');if(!el)return;el.innerHTML='';let d=700;lines.forEach(l=>{d+=l.d;setTimeout(()=>{const div=document.createElement('div');div.className='term-line';div.innerHTML=l.t;el.appendChild(div);el.scrollTop=el.scrollHeight},d)});setTimeout(()=>runTerm(),d+6000)}
-const ho=new IntersectionObserver(e=>{if(e[0].isIntersecting){runTerm();ho.disconnect()}},{threshold:.3});
-const te=document.querySelector('.term-wrap');if(te)ho.observe(te);
+// Hero video mute/unmute toggle
+const heroVideo = document.getElementById('hero-video');
+const muteBtn = document.getElementById('hero-mute-btn');
+if (heroVideo && muteBtn) {
+  muteBtn.addEventListener('click', () => {
+    heroVideo.muted = !heroVideo.muted;
+    const isMuted = heroVideo.muted;
+    muteBtn.setAttribute('aria-pressed', String(isMuted));
+    muteBtn.setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
+    muteBtn.querySelector('.icon-muted').style.display = isMuted ? '' : 'none';
+    muteBtn.querySelector('.icon-unmuted').style.display = isMuted ? 'none' : '';
+  });
+}
 
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');ro.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
