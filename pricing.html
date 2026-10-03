@@ -12,9 +12,18 @@
   <meta property="og:url" content="https://yansii.in/pricing">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%230d1117'/%3E%3Cpath d='M175 90L175 340Q175 420 240 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Cpath d='M337 90L337 340Q337 420 272 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='45' stroke='%23e8403a' stroke-width='6' fill='none' opacity='.25'/%3E%3Ccircle cx='256' cy='260' r='26' stroke='%23e8403a' stroke-width='7' fill='none' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='12' fill='%23e8403a'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Self-hosted fonts (no Google CDN, no IP leaks) -->
+  <style>
+    @font-face{font-family:"Inter";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/inter-300.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/inter-400.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/inter-500.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/inter-600.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/inter-700.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/inter-800.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/jbmono-400.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/jbmono-500.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/jbmono-600.woff2) format("woff2")}
+  </style>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -124,15 +133,8 @@
     details[open] .faq-t{background:rgba(232,64,58,.08);border-color:rgba(232,64,58,.18);color:var(--red)}
     .faq-a{padding:0 0 17px 34px;font-size:13px;color:var(--mut);line-height:1.7}
 
-    /* WAITLIST */
-    .wl{background:var(--card);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
-    .wl-in{max-width:460px;margin:0 auto;text-align:center}
-    .wl-f{display:flex;gap:8px;max-width:380px;margin:0 auto}
-    @media(max-width:440px){.wl-f{flex-direction:column}}
-    .wl-i{flex:1;background:var(--bg);border:1px solid var(--brd);color:var(--tx);padding:11px 14px;border-radius:10px;font-size:13px;font-family:inherit;outline:none}
-    .wl-i:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
-    .wl-b{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-    .wl-b:hover{background:#d63630}
+    /* UPDATE STRIP */
+    .update-strip{background:var(--card);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:40px 24px;text-align:center}
 
     /* FOOTER */
     .footer{border-top:1px solid var(--brd);padding:40px 24px}
@@ -298,17 +300,9 @@
   </div>
 </section>
 
-<!-- WAITLIST -->
-<section id="waitlist" class="section wl">
-  <div class="wl-in">
-    <h2 class="stitle" style="margin-bottom:8px">Get notified when Pro launches</h2>
-    <p style="font-size:13.5px;color:var(--mut);margin-bottom:20px;line-height:1.7">One email, when it's live. Includes the 14-day trial.</p>
-    <div class="wl-f" id="wl-f">
-      <input type="email" id="wl-email" placeholder="hunter@protonmail.com" required class="wl-i" aria-label="Email">
-      <button type="button" onclick="handleWL()" class="wl-b">Notify me</button>
-    </div>
-    <p id="wl-msg" style="font-size:12px;min-height:18px;margin-top:10px" role="status" aria-live="polite"></p>
-  </div>
+<!-- PRO UPDATE STRIP -->
+<section class="update-strip">
+  <p style="font-size:14px;color:var(--tx2);font-weight:500">Pro launching soon — follow updates on <a href="https://x.com/YANSIIdev" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:none;font-weight:600">@YANSIIdev</a></p>
 </section>
 
 <!-- FAQ -->
@@ -397,23 +391,9 @@ function handleBuyClick() {
   if (url && !url.startsWith('REPLACE_WITH_')) {
     window.location.href = url;
   } else {
-    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-    document.getElementById('wl-email')?.focus();
+    window.open('https://x.com/YANSIIdev', '_blank');
   }
 }
-
-// Waitlist
-function handleWL() {
-  const i = document.getElementById('wl-email'), m = document.getElementById('wl-msg'), e = i.value.trim();
-  if (!e || !e.includes('@') || !e.includes('.')) { m.textContent = 'Please enter a valid email.'; m.style.color = 'var(--red)'; return; }
-  m.textContent = 'Submitting…'; m.style.color = 'var(--mut)';
-  fetch('https://script.google.com/macros/s/AKfycbwI4dGnODWI4lQtiev6GI1SRzqN0idPjUrFFPhS6V_WCAGup-lxaSqcETVricoeIRdP/exec', {
-    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: e, source: 'yansii.in/pricing' })
-  }).then(() => { m.textContent = "You're on the list — we'll email you."; m.style.color = 'var(--green)'; i.value = ''; })
-    .catch(() => { m.textContent = 'Something went wrong. Email hello@yansii.in instead.'; m.style.color = 'var(--red)'; });
-}
-document.getElementById('wl-email')?.addEventListener('keydown', e => { if (e.key === 'Enter') handleWL(); });
 
 document.querySelectorAll('.faq-item').forEach(d => { d.addEventListener('toggle', () => { d.querySelector('.faq-t').textContent = d.open ? '−' : '+'; }); });
 </script>
