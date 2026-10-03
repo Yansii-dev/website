@@ -5,7 +5,9 @@
     { "source": "/", "destination": "/index.html" },
     { "source": "/pricing", "destination": "/pricing.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/feedback", "destination": "/feedback.html" }
+    { "source": "/feedback", "destination": "/feedback.html" },
+    { "source": "/bridge", "destination": "/bridge.html" },
+    { "source": "/terms", "destination": "/terms.html" }
   ],
   "headers": [
     {
