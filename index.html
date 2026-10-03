@@ -12,9 +12,18 @@
   <meta property="og:url" content="https://yansii.in">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%230d1117'/%3E%3Cpath d='M175 90L175 340Q175 420 240 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Cpath d='M337 90L337 340Q337 420 272 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='45' stroke='%23e8403a' stroke-width='6' fill='none' opacity='.25'/%3E%3Ccircle cx='256' cy='260' r='26' stroke='%23e8403a' stroke-width='7' fill='none' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='12' fill='%23e8403a'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Self-hosted fonts (no Google CDN, no IP leaks) -->
+  <style>
+    @font-face{font-family:"Inter";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/inter-300.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/inter-400.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/inter-500.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/inter-600.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/inter-700.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/inter-800.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/jbmono-400.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/jbmono-500.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/jbmono-600.woff2) format("woff2")}
+  </style>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -209,14 +218,8 @@
     .ib li::before{content:counter(s);color:var(--blue);font-weight:600;flex-shrink:0;width:12px}
     .ib li code{color:var(--tx2);background:rgba(240,246,252,.04);padding:1px 5px;border-radius:3px}
 
-    /* ═══ WAITLIST ═══ */
-    .wl{position:relative;overflow:hidden;background:var(--card);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);z-index:1}
-    .wl-in{position:relative;z-index:1;max-width:480px;margin:0 auto;text-align:center}
-    .wl-f{display:flex;gap:8px;max-width:400px;margin:0 auto}@media(max-width:480px){.wl-f{flex-direction:column}}
-    .wl-i{flex:1;background:var(--bg);border:1px solid var(--brd);color:var(--tx);padding:11px 14px;border-radius:10px;font-size:13px;font-family:inherit;outline:none}
-    .wl-i::placeholder{color:var(--dim)}.wl-i:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.1)}
-    .wl-b{background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;white-space:nowrap;font-family:inherit}
-    .wl-b:hover{background:#d63630;transform:translateY(-1px)}
+    /* ═══ PRO UPDATE STRIP ═══ */
+    .update-strip{background:var(--card);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);z-index:1;padding:40px 24px;text-align:center}
 
     /* ═══ FAQ ═══ */
     .faq-list{max-width:640px}.faq-item{border-bottom:1px solid var(--brd)}.faq-item:first-child{border-top:1px solid var(--brd)}
@@ -492,8 +495,8 @@
           <strong>AI features use your own API key</strong> (Anthropic, OpenAI, Groq, or OpenRouter). YANSII doesn't charge for AI usage — only the subscription. Typical cost is $5–15/month depending on use.
         </div>
 
-        <a href="#waitlist" class="notify-link">
-          Get notified when Pro launches
+        <a href="https://x.com/YANSIIdev" target="_blank" rel="noopener" class="notify-link">
+          Follow @YANSIIdev for Pro updates
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -594,19 +597,9 @@
   </div>
 </section>
 
-<!-- ═══ WAITLIST ═══ -->
-<section id="waitlist" class="section wl" aria-labelledby="wl-h">
-  <div class="wl-in rv">
-    <h2 id="wl-h" class="stitle" style="text-align:center">Stay updated</h2>
-    <p style="font-size:13.5px;color:var(--mut);margin-bottom:22px;line-height:1.7">Free tier is available now. Get notified when Pro — with its 14-day trial — goes live.</p>
-    <form class="wl-f" id="wl-f" onsubmit="return false">
-      <label for="wl-email" class="visually-hidden" style="position:absolute;left:-9999px">Email address</label>
-      <input type="email" id="wl-email" name="email" placeholder="hunter@protonmail.com" required class="wl-i">
-      <button type="button" onclick="handleWL()" class="wl-b">Notify me</button>
-    </form>
-    <p id="wl-msg" style="font-size:12px;min-height:18px;margin-top:10px" role="status" aria-live="polite"></p>
-    <p style="font-size:11px;color:var(--dim);margin-top:8px">Or email <a href="mailto:hello@yansii.in" style="color:var(--blue);text-decoration:none">hello@yansii.in</a> · No spam.</p>
-  </div>
+<!-- ═══ PRO UPDATE STRIP ═══ -->
+<section class="update-strip">
+  <p style="font-size:14px;color:var(--tx2);font-weight:500">Pro launching soon — follow updates on <a href="https://x.com/YANSIIdev" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:none;font-weight:600">@YANSIIdev</a></p>
 </section>
 
 <!-- ═══ FAQ ═══ -->
@@ -708,16 +701,6 @@ document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 document.querySelectorAll('.faq-item').forEach(d=>{d.addEventListener('toggle',()=>{d.querySelector('.faq-t').textContent=d.open?'−':'+'})});
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-64,behavior:'smooth'})}})});
-
-function handleWL(){
-  const i=document.getElementById('wl-email'),m=document.getElementById('wl-msg'),e=i.value.trim();
-  if(!e||!e.includes('@')||!e.includes('.')){m.textContent='Please enter a valid email.';m.style.color='var(--red)';return}
-  m.textContent='Submitting…';m.style.color='var(--mut)';
-  fetch('https://script.google.com/macros/s/AKfycbwI4dGnODWI4lQtiev6GI1SRzqN0idPjUrFFPhS6V_WCAGup-lxaSqcETVricoeIRdP/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,source:'yansii.in'})})
-    .then(()=>{m.textContent="You're on the list — we'll email you.";m.style.color='var(--green)';i.value=''})
-    .catch(()=>{m.textContent='Something went wrong. Email hello@yansii.in instead.';m.style.color='var(--red)'});
-}
-document.getElementById('wl-email')?.addEventListener('keydown',e=>{if(e.key==='Enter')handleWL()});
 
 const nav=document.querySelector('.nav');
 window.addEventListener('scroll',()=>{nav.style.background=window.scrollY>20?'rgba(13,17,23,.92)':'rgba(13,17,23,.72)'},{passive:true});
