@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YANSII Bridge — Connect to Claude Code</title>
-  <meta name="description" content="Connect the YANSII browser extension to Claude Code over a local MCP bridge. Binds 127.0.0.1 only. Setup, security model, troubleshooting.">
+  <title>YANSII — Claude Code Bridge</title>
+  <meta name="description" content="Connect YANSII to Claude Code CLI. Pull live findings, traffic, endpoints, and cookies into your terminal via MCP.">
   <meta name="theme-color" content="#0d1117">
-  <meta property="og:title" content="YANSII Bridge — Connect to Claude Code">
-  <meta property="og:description" content="Local MCP bridge between your browser session and Claude Code. Binds 127.0.0.1 only.">
+  <meta property="og:title" content="YANSII — Claude Code Bridge">
+  <meta property="og:description" content="Connect YANSII to Claude Code. Pull live browser data into your terminal via MCP.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yansii.in/bridge">
-  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%230d1117'/%3E%3Cpath d='M175 90L175 340Q175 420 240 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Cpath d='M337 90L337 340Q337 420 272 445' stroke='%23e8403a' stroke-width='14' fill='none' stroke-linecap='round' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='45' stroke='%23e8403a' stroke-width='6' fill='none' opacity='.25'/%3E%3Ccircle cx='256' cy='260' r='26' stroke='%23e8403a' stroke-width='7' fill='none' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='12' fill='%23e8403a'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +20,9 @@
     :root{--bg:#0d1117;--bg2:#131a23;--card:#161b22;--brd:#21262d;--brdl:#30363d;--red:#e8403a;--blue:#58a6ff;--purple:#bc8cff;--green:#3fb950;--orange:#f0883e;--tx:#f0f6fc;--tx2:#c9d1d9;--mut:#8b949e;--dim:#484f58}
     body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
     a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    code{font-family:'JetBrains Mono',monospace}
     .skip-link{position:absolute;top:-100px;left:16px;background:var(--red);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;z-index:1000;transition:top .2s}
     .skip-link:focus{top:16px}
-    code{font-family:'JetBrains Mono',monospace}
 
     .nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);background:rgba(13,17,23,.72);border-bottom:1px solid rgba(33,38,45,.6)}
     .nav-in{max-width:860px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between}
@@ -39,20 +38,25 @@
 
     main{max-width:760px;margin:0 auto;padding:130px 24px 80px}
 
-    /* HERO */
     .hero-top{margin-bottom:48px}
     .badge-row{display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap}
     .badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:4px 12px;border-radius:6px;letter-spacing:.04em}
     .badge-pro{background:var(--red);color:#fff}
-    .badge-local{background:rgba(88,166,255,.1);color:var(--blue);border:1px solid rgba(88,166,255,.18)}
+    .badge-mcp{background:rgba(188,140,255,.1);color:var(--purple);border:1px solid rgba(188,140,255,.18)}
     .hero-top h1{font-size:clamp(1.8rem,4vw,2.3rem);font-weight:800;letter-spacing:-.03em;margin-bottom:12px;line-height:1.2}
     .hero-sub{font-size:14.5px;color:var(--tx2);line-height:1.7;margin-bottom:14px}
-    .hero-intro{font-size:13.5px;color:var(--mut);line-height:1.75;max-width:600px}
-    .hero-intro strong{color:var(--tx2)}
+    .hero-note{font-size:13px;color:var(--mut);line-height:1.7;padding:14px 16px;background:rgba(88,166,255,.04);border:1px solid rgba(88,166,255,.12);border-radius:10px}
+    .hero-note strong{color:var(--tx2)}
+
+    section{margin-bottom:52px}
+    .slabel{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--blue);margin-bottom:10px;letter-spacing:.03em}
+    h2{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+    h3{font-size:15px;font-weight:600;margin-bottom:10px}
+    p.lead{font-size:13.5px;color:var(--tx2);line-height:1.75;margin-bottom:16px}
 
     /* DIAGRAM */
     .diagram{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:26px 20px;margin:28px 0;overflow-x:auto}
-    .diagram-row{display:flex;align-items:center;justify-content:center;gap:10px;min-width:560px}
+    .diagram-row{display:flex;align-items:center;justify-content:center;gap:10px;min-width:480px}
     .diagram-node{flex:1;text-align:center;padding:14px 10px;background:var(--bg2);border:1px solid var(--brdl);border-radius:10px}
     .diagram-node .dn-title{font-size:12.5px;font-weight:700;color:var(--tx);margin-bottom:4px}
     .diagram-node .dn-sub{font-size:10.5px;color:var(--mut);line-height:1.5}
@@ -61,43 +65,7 @@
     .diagram-node.mid{border-color:rgba(232,64,58,.25);background:rgba(232,64,58,.04)}
     .diagram-node.mid .dn-title{color:var(--red)}
 
-    /* SECURITY CALLOUT */
-    .security-callout{background:rgba(63,185,80,.05);border:1px solid rgba(63,185,80,.2);border-radius:14px;padding:22px 24px;margin-bottom:48px;display:flex;gap:14px}
-    .security-callout .lock{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:rgba(63,185,80,.12);border:1px solid rgba(63,185,80,.25);color:var(--green);display:flex;align-items:center;justify-content:center}
-    .security-callout h3{font-size:14.5px;font-weight:700;color:var(--green);margin-bottom:6px}
-    .security-callout p{font-size:13px;color:var(--tx2);line-height:1.7}
-    .security-callout code{color:var(--green);background:rgba(63,185,80,.08);padding:1px 5px;border-radius:3px;font-size:12px}
-
-    /* SECTION */
-    section{margin-bottom:52px}
-    .slabel{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--blue);margin-bottom:10px;letter-spacing:.03em}
-    h2{font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
-    p.lead{font-size:13.5px;color:var(--tx2);line-height:1.75;margin-bottom:16px}
-
-    /* STEPS */
-    .step{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:22px 24px;margin-bottom:14px}
-    .step-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .step-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);width:28px;height:28px;border-radius:8px;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .step-head h3{font-size:14.5px;font-weight:600}
-    .step p{font-size:13px;color:var(--mut);line-height:1.7;margin-bottom:10px}
-    .step ol,.step ul{margin:8px 0 8px 18px}
-    .step li{font-size:13px;color:var(--mut);line-height:1.8}
-    .step li strong{color:var(--tx2)}
-    .kbd{background:rgba(240,246,252,.06);border:1px solid var(--brdl);border-radius:5px;padding:1px 7px;font-size:12px;color:var(--tx2);font-family:'JetBrains Mono',monospace}
-
-    /* CODE BLOCKS */
-    .code-block{position:relative;background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:12px 0}
-    .code-block pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx2);line-height:1.7;white-space:pre}
-    .code-block .k{color:var(--blue)}.code-block .s{color:var(--green)}.code-block .c{color:var(--dim)}.code-block .cmt{color:var(--dim);font-style:italic}
-    .copy-btn{position:absolute;top:10px;right:10px;background:rgba(240,246,252,.05);border:1px solid var(--brdl);color:var(--mut);font-size:10.5px;font-family:'JetBrains Mono',monospace;padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .2s}
-    .copy-btn:hover{background:rgba(240,246,252,.1);color:var(--tx)}
-    .copy-btn.copied{color:var(--green);border-color:rgba(63,185,80,.3)}
-    .code-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dim);margin-bottom:-4px;display:block}
-
-    .status-live{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--green);font-weight:600}
-    .status-live .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-
-    /* TABLES */
+    /* MCP TOOLS TABLE */
     .tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--brd);background:var(--card)}
     table.data-tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:480px}
     table.data-tbl th{text-align:left;padding:10px 16px;background:var(--bg2);color:var(--tx2);font-weight:600;border-bottom:1px solid var(--brd)}
@@ -105,21 +73,44 @@
     table.data-tbl tr:last-child td{border-bottom:none}
     table.data-tbl code{color:var(--purple);font-size:11.5px}
 
-    /* DATA SHARING */
-    .share-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:600px){.share-grid{grid-template-columns:1fr}}
-    .share-col{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:18px 20px}
-    .share-col h4{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
-    .share-col.on h4{color:var(--green)}
-    .share-col.off h4{color:var(--dim)}
-    .share-col li{list-style:none;display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--mut);padding:4px 0}
-    .share-col.on li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
-    .share-col.off li::before{content:'✗';color:var(--dim);font-weight:700;flex-shrink:0}
+    /* EXAMPLES */
+    .example-grid{display:grid;gap:10px}
+    .example{background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}
+    @media(max-width:600px){.example{grid-template-columns:1fr}}
+    .example-prompt{font-size:13px;color:var(--tx2);font-style:italic}
+    .example-what{font-size:12px;color:var(--dim);text-align:right;white-space:nowrap}
+    @media(max-width:600px){.example-what{text-align:left}}
 
-    /* PROMPT LIST */
-    .prompt-cat{margin-bottom:16px}
-    .prompt-cat h4{font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-    .prompt-item{background:var(--card);border:1px solid var(--brd);border-radius:8px;padding:10px 14px;margin-bottom:6px;font-size:12.5px;color:var(--tx2);font-style:italic}
+    /* STEPS */
+    .step{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+    .step-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .step-n{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);width:28px;height:28px;border-radius:8px;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .step-head h3{font-size:14.5px;font-weight:600;margin-bottom:0}
+    .step p{font-size:13px;color:var(--mut);line-height:1.7;margin-bottom:10px}
+    .step p strong{color:var(--tx2)}
+    .prereq{font-size:12.5px;color:var(--dim);margin-bottom:18px}
+    .prereq strong{color:var(--mut)}
+
+    /* CODE BLOCKS */
+    .code-block{position:relative;background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:12px 0}
+    .code-block pre{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx2);line-height:1.7;white-space:pre}
+    .code-block .k{color:var(--blue)}.code-block .s{color:var(--green)}.code-block .cmt{color:var(--dim);font-style:italic}
+    .copy-btn{position:absolute;top:10px;right:10px;background:rgba(240,246,252,.05);border:1px solid var(--brdl);color:var(--mut);font-size:10.5px;font-family:'JetBrains Mono',monospace;padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .2s}
+    .copy-btn:hover{background:rgba(240,246,252,.1);color:var(--tx)}
+    .copy-btn.copied{color:var(--green);border-color:rgba(63,185,80,.3)}
+
+    /* RECOMMENDED / COMING SOON */
+    .rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:600px){.rec-grid{grid-template-columns:1fr}}
+    .rec-card{background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:20px}
+    .rec-card h4{font-size:13px;font-weight:700;margin-bottom:6px;color:var(--tx);display:flex;align-items:center;gap:7px}
+    .rec-card h4 .dot{width:6px;height:6px;border-radius:50%}
+    .rec-card p{font-size:12.5px;color:var(--mut);line-height:1.65}
+
+    .soon-list{list-style:none;padding:0}
+    .soon-list li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--mut);padding:6px 0}
+    .soon-list li strong{color:var(--tx2)}
+    .soon-list li::before{content:'→';color:var(--dim);flex-shrink:0}
 
     /* FOOTER */
     footer{border-top:1px solid var(--brd);padding:36px 24px}
@@ -127,8 +118,8 @@
     .footer-links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px}
     .footer-links a{color:var(--mut);text-decoration:none;font-size:13px}
     .footer-links a:hover{color:var(--tx)}
-    .footer-pro-note{font-size:12.5px;color:var(--dim);padding-top:14px;border-top:1px solid rgba(33,38,45,.5)}
-    .footer-pro-note a{color:var(--red);text-decoration:none;font-weight:600}
+    .footer-note{font-size:12.5px;color:var(--dim);padding-top:14px;border-top:1px solid rgba(33,38,45,.5)}
+    .footer-note a{color:var(--red);text-decoration:none;font-weight:600}
   </style>
 </head>
 <body>
@@ -150,7 +141,7 @@
     <ul class="nav-links">
       <li class="nav-mid"><a href="/pricing">Pricing</a></li>
       <li class="nav-mid"><a href="/#faq">FAQ</a></li>
-      <li><a href="/" class="nav-cta">← Back home</a></li>
+      <li><a href="/" class="nav-cta">← Home</a></li>
     </ul>
   </div>
 </header>
@@ -161,284 +152,167 @@
   <div class="hero-top">
     <div class="badge-row">
       <span class="badge badge-pro">PRO FEATURE</span>
-      <span class="badge badge-local">127.0.0.1 ONLY</span>
+      <span class="badge badge-mcp">MCP PROTOCOL</span>
     </div>
-    <h1>YANSII Bridge — Connect to Claude Code</h1>
-    <p class="hero-sub">Bridge your browser's authenticated session to Claude Code or any MCP-compatible AI agent. Your browser sees the session; Claude Code does the testing.</p>
-    <p class="hero-intro">The YANSII Bridge is a small local server that runs on your machine. It relays data between the YANSII browser extension and Claude Code. <strong>Everything stays on your machine</strong> — the bridge binds to localhost only and is never exposed to the internet.</p>
+    <h1>Claude Code Bridge</h1>
+    <p class="hero-sub">Connect YANSII to Claude Code CLI. Pull live findings, traffic, endpoints, and cookies into your terminal. Replay requests, trigger scans, set scope — all from the command line.</p>
+    <div class="hero-note"><strong>AI features</strong> (Copilot, Deep Dive, Verify) use your API key in the extension. The bridge handles data sync — they work independently.</div>
   </div>
 
-  <!-- DIAGRAM -->
-  <div class="diagram">
-    <div class="diagram-row">
-      <div class="diagram-node">
-        <div class="dn-title">Browser</div>
-        <div class="dn-sub">YANSII extension<br>session, DOM, API responses</div>
-      </div>
-      <div class="diagram-arrow">
-        <svg width="24" height="10" viewBox="0 0 24 10" fill="none"><path d="M0 5h22M18 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
-        ws:7779
-      </div>
-      <div class="diagram-node mid">
-        <div class="dn-title">server.js --mcp</div>
-        <div class="dn-sub">shared in-memory store<br>127.0.0.1 only</div>
-      </div>
-      <div class="diagram-arrow">
-        <svg width="24" height="10" viewBox="0 0 24 10" fill="none"><path d="M0 5h22M18 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
-        stdio
-      </div>
-      <div class="diagram-node">
-        <div class="dn-title">Claude Code</div>
-        <div class="dn-sub">runs curl, scripts, tests</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SECURITY CALLOUT -->
-  <div class="security-callout">
-    <div class="lock"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-    <div>
-      <h3>Secure by design</h3>
-      <p>The bridge binds to <code>127.0.0.1</code> (localhost) only — nothing is exposed to your network or the internet. No auth token is needed for local use. For remote Claude Code (on a VPS), use an SSH tunnel — never expose the bridge directly.</p>
-    </div>
-  </div>
-
-  <!-- QUICK START -->
+  <!-- WHAT THE BRIDGE DOES -->
   <section>
-    <p class="slabel">Quick start</p>
-    <h2>Four steps</h2>
-    <p class="lead">Requires YANSII <strong style="color:var(--tx2)">Pro</strong>, <a href="https://claude.com/claude-code" target="_blank" rel="noopener" style="color:var(--blue)">Claude Code</a>, and Node.js on the same machine — or reachable over SSH for a remote setup.</p>
+    <p class="slabel">Overview</p>
+    <h2>What the bridge does</h2>
+    <p class="lead">The bridge connects YANSII's live browser data to Claude Code via MCP (Model Context Protocol). Claude Code gets direct access to everything the extension captures — so you can analyze, script, and automate from your terminal instead of clicking through the popup.</p>
+
+    <h3>Available MCP tools</h3>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>yansii_get_findings</code></td><td>Pull all findings with severity, evidence, and status</td></tr>
+          <tr><td><code>yansii_get_traffic</code></td><td>Get captured HTTP requests and responses</td></tr>
+          <tr><td><code>yansii_get_endpoints</code></td><td>List all discovered endpoints and parameters</td></tr>
+          <tr><td><code>yansii_get_cookies</code></td><td>Read cookie attributes and security flags</td></tr>
+          <tr><td><code>yansii_get_localstorage</code></td><td>Access localStorage/sessionStorage data</td></tr>
+          <tr><td><code>yansii_get_dom</code></td><td>Get live DOM snapshots from the active tab</td></tr>
+          <tr><td><code>yansii_replay_request</code></td><td>Replay a captured request with modified headers or body</td></tr>
+          <tr><td><code>yansii_trigger_scan</code></td><td>Start a passive scan from the terminal</td></tr>
+          <tr><td><code>yansii_set_scope</code></td><td>Configure target scope without opening the popup</td></tr>
+          <tr><td><code>yansii_add_finding</code></td><td>Add a manual finding from Claude Code</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:28px">What this means in practice</h3>
+    <p class="lead">Instead of switching between the extension popup and your terminal, you stay in Claude Code:</p>
+    <div class="example-grid">
+      <div class="example">
+        <span class="example-prompt">"Show me all high-severity findings from this session"</span>
+        <span class="example-what">pulls via MCP</span>
+      </div>
+      <div class="example">
+        <span class="example-prompt">"Replay this request without the auth header"</span>
+        <span class="example-what">sends replay, compares</span>
+      </div>
+      <div class="example">
+        <span class="example-prompt">"What cookies on this domain are missing Secure flag?"</span>
+        <span class="example-what">reads live cookie data</span>
+      </div>
+      <div class="example">
+        <span class="example-prompt">"Write a report of everything found so far"</span>
+        <span class="example-what">pulls findings, writes markdown</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA FLOW DIAGRAM -->
+  <section>
+    <p class="slabel">Architecture</p>
+    <h2>How data flows</h2>
+    <div class="diagram">
+      <div class="diagram-row">
+        <div class="diagram-node">
+          <div class="dn-title">Browser</div>
+          <div class="dn-sub">YANSII extension<br>sessions, DOM, traffic</div>
+        </div>
+        <div class="diagram-arrow">
+          <svg width="24" height="10" viewBox="0 0 24 10" fill="none"><path d="M0 5h22M18 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+          WebSocket<br>(localhost)
+        </div>
+        <div class="diagram-node mid">
+          <div class="dn-title">bridge.js</div>
+          <div class="dn-sub">data sync<br>localhost only</div>
+        </div>
+        <div class="diagram-arrow">
+          <svg width="24" height="10" viewBox="0 0 24 10" fill="none"><path d="M0 5h22M18 1l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+          MCP<br>(stdio)
+        </div>
+        <div class="diagram-node">
+          <div class="dn-title">Claude Code</div>
+          <div class="dn-sub">analyze, script, automate</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--mut);line-height:1.7">All data stays on your machine. The bridge runs locally — no data leaves your device. AI features go directly from the extension to your chosen AI provider via your API key, completely independent of the bridge.</p>
+  </section>
+
+  <!-- SETUP -->
+  <section>
+    <p class="slabel">Setup</p>
+    <h2>Get connected</h2>
+    <p class="prereq"><strong>Requirements:</strong> YANSII Pro subscription · Claude Code CLI · Node.js 18+</p>
 
     <div class="step">
-      <div class="step-head"><span class="step-n">1</span><h3>Get the bridge</h3></div>
-      <p>Clone the bridge repo and install its dependencies:</p>
+      <div class="step-head"><span class="step-n">1</span><h3>Install the bridge</h3></div>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        <pre><span class="cmt"># clone it</span>
-git clone https://github.com/Yansii-dev/yansii-bridge
-
-<span class="cmt"># install dependencies</span>
-cd yansii-bridge && npm install
-
-<span class="cmt"># quick sanity check — starts the bridge manually</span>
-node server.js --mcp</pre>
+        <pre>git clone https://github.com/Yansii-dev/yansii-bridge.git
+cd yansii-bridge
+npm install</pre>
       </div>
-      <p style="margin-top:2px">That last command is just to confirm it runs — you'll see the <a href="#startup-log" style="color:var(--blue)">startup log</a> below. Stop it with <span class="kbd">Ctrl+C</span>; Claude Code will start it automatically once configured in the next step.</p>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-n">2</span><h3>Add the MCP server to Claude Code</h3></div>
-      <p>Edit your Claude Code config — <code>~/.claude/claude_code_config.json</code> or a project <code>.mcp.json</code>:</p>
+      <div class="step-head"><span class="step-n">2</span><h3>Add to Claude Code MCP config</h3></div>
+      <p>Add this to your Claude Code MCP settings (<code>~/.config/claude/mcp.json</code> or via <code>claude mcp add</code>):</p>
       <div class="code-block">
         <button class="copy-btn" onclick="copyCode(this)">Copy</button>
         <pre>{
   <span class="k">"mcpServers"</span>: {
     <span class="k">"yansii"</span>: {
       <span class="k">"command"</span>: <span class="s">"node"</span>,
-      <span class="k">"args"</span>: [<span class="s">"/full/path/to/yansii-bridge/server.js"</span>, <span class="s">"--mcp"</span>]
+      <span class="k">"args"</span>: [<span class="s">"/path/to/yansii-bridge/bridge.js"</span>]
     }
   }
 }</pre>
       </div>
-      <p style="margin-top:2px">Use <strong style="color:var(--tx2)">your own absolute path</strong> — not the placeholder above. Find it by running <code style="color:var(--purple)">pwd</code> inside the <code>yansii-bridge</code> folder you just cloned, then append <code>/server.js</code> to that output. Restart Claude Code after saving.</p>
+      <p>Replace <code>/path/to/yansii-bridge/</code> with the actual path where you cloned the repo. Find it by running <code style="color:var(--purple)">pwd</code> inside the <code>yansii-bridge</code> folder.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">3</span><h3>Connect from the extension</h3></div>
+      <p>Open YANSII → scroll to the <strong>Claude Code Bridge</strong> section (visible with a Pro license) → toggle to <strong>Connected</strong>. The status indicator shows the WebSocket connection state.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">4</span><h3>Verify in Claude Code</h3></div>
+      <p>Ask Claude Code:</p>
       <div class="code-block">
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        <pre><span class="cmt"># run this inside the yansii-bridge folder to get your exact path:</span>
-pwd</pre>
+        <pre><span class="s">"Use yansii_get_findings to show my current scan results"</span></pre>
       </div>
-    </div>
-
-    <div class="step">
-      <div class="step-head"><span class="step-n">3</span><h3>Connect the extension</h3></div>
-      <ol>
-        <li>Open the YANSII popup</li>
-        <li>Go to <strong>Claude Code Bridge</strong></li>
-        <li>The URL is pre-filled: <code style="color:var(--purple)">ws://127.0.0.1:7779</code></li>
-        <li>Click <span class="kbd">Test Connection</span></li>
-        <li>Click <span class="kbd">Connect</span></li>
-      </ol>
-      <p style="margin-top:8px">Status turns: <span class="status-live"><span class="dot"></span>Bridge connected</span></p>
-    </div>
-
-    <div class="step">
-      <div class="step-head"><span class="step-n">4</span><h3>Use it in Claude Code</h3></div>
-      <p>Ask Claude Code things like:</p>
-      <ul>
-        <li>"Check YANSII status"</li>
-        <li>"Show me the findings YANSII detected on [domain]"</li>
-        <li>"Investigate the top YANSII finding using the session data"</li>
-      </ul>
+      <p>If findings come back, the bridge is working.</p>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- RECOMMENDED SETUP -->
   <section>
-    <p class="slabel">How it works</p>
-    <h2>A stdio + localhost-WebSocket hybrid</h2>
-    <p class="lead"><code>server.js --mcp</code> runs both transports at once, sharing one in-memory store — findings the extension pushes are instantly readable by Claude Code's MCP tools:</p>
-    <ul style="margin-left:18px;margin-bottom:16px">
-      <li style="font-size:13px;color:var(--mut);line-height:1.8"><strong style="color:var(--tx2)">stdio ↔ Claude Code</strong> — Claude Code launches the bridge as a subprocess and talks to it over stdin/stdout (MCP). No open port at all for this side.</li>
-      <li style="font-size:13px;color:var(--mut);line-height:1.8"><strong style="color:var(--tx2)">localhost WebSocket ↔ browser extension</strong> — a WebSocket server on <code style="color:var(--purple)">127.0.0.1:7779</code> that the extension connects to.</li>
+    <p class="slabel">Best practice</p>
+    <h2>Recommended setup</h2>
+    <div class="rec-grid">
+      <div class="rec-card">
+        <h4><span class="dot" style="background:var(--purple)"></span>API key — for AI features</h4>
+        <p>Set an Anthropic or Groq key in the extension popup. This powers Copilot, Deep Dive, and AI Verify. Runs entirely in the extension.</p>
+      </div>
+      <div class="rec-card">
+        <h4><span class="dot" style="background:var(--blue)"></span>Bridge — for data sync</h4>
+        <p>Connect the bridge for Claude Code access to live scan data. Analyze findings in bulk, generate reports, script replay sequences, build automation.</p>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--dim);margin-top:12px">Both work simultaneously. The extension uses your API key for AI and the bridge for data sync — they don't compete.</p>
+  </section>
+
+  <!-- COMING SOON -->
+  <section>
+    <p class="slabel">Roadmap</p>
+    <h2>Coming soon</h2>
+    <ul class="soon-list">
+      <li><strong>Bulk replay</strong> — replay multiple requests with auth swaps in one command</li>
+      <li><strong>Report generation</strong> — Claude Code pulls findings and writes a full report</li>
+      <li><strong>GraphQL schema export</strong> — expose discovered schemas for deep analysis</li>
+      <li><strong>Memory export</strong> — access cross-session patterns from the terminal</li>
+      <li><strong>Scope import</strong> — set up target profiles from bug bounty program pages</li>
     </ul>
-
-    <p class="lead" style="margin-bottom:8px">Three modes, depending on your setup:</p>
-    <div class="tbl-wrap">
-      <table class="data-tbl">
-        <thead><tr><th>Mode</th><th>Command</th><th>When</th></tr></thead>
-        <tbody>
-          <tr><td><strong style="color:var(--tx2)">A. stdio (recommended)</strong></td><td>launched by Claude Code via MCP config</td><td>Most users. No open port.</td></tr>
-          <tr><td>B. Localhost WebSocket</td><td><code>node server.js</code></td><td>Manual/testing on the same machine. Binds 127.0.0.1.</td></tr>
-          <tr><td>C. Remote via SSH tunnel</td><td><code>node server.js --mcp</code> + reverse tunnel</td><td>Claude Code on a VPS, browser local.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p style="font-size:13px;color:var(--tx2);margin:20px 0 8px"><strong>Mode C — remote setup:</strong> run the bridge locally and tunnel it to the VPS. Never expose the port directly.</p>
-    <div class="code-block">
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre><span class="cmt"># local machine:</span>
-node server.js --mcp
-
-<span class="cmt"># from local, open a reverse tunnel to the VPS:</span>
-ssh -R 7780:127.0.0.1:7780 you@your-vps</pre>
-    </div>
-    <p style="font-size:12.5px;color:var(--mut)">Claude Code on the VPS then reaches the bridge at <code style="color:var(--purple)">http://127.0.0.1:7780</code>. The tunnel is encrypted; no public port.</p>
-  </section>
-
-  <!-- SECURITY DETAIL -->
-  <section>
-    <p class="slabel">Security</p>
-    <h2>The security model</h2>
-    <ul style="margin-left:18px;margin-bottom:16px">
-      <li style="font-size:13px;color:var(--mut);line-height:1.9"><strong style="color:var(--tx2)">Binds 127.0.0.1 by default.</strong> Not reachable from your LAN or the internet.</li>
-      <li style="font-size:13px;color:var(--mut);line-height:1.9"><strong style="color:var(--tx2)">No auth needed for localhost.</strong></li>
-      <li style="font-size:13px;color:var(--mut);line-height:1.9"><strong style="color:var(--tx2)">Binding to a non-localhost <code style="color:var(--purple)">--host</code> requires <code style="color:var(--purple)">--auth &lt;token&gt;</code>.</strong> The server refuses to start on a non-localhost address without a token, and prints a loud warning if you do supply one — this prevents accidentally exposing your session data.</li>
-    </ul>
-    <div class="code-block">
-      <pre>node server.js --host 0.0.0.0                  <span class="cmt">❌ refuses to start</span>
-node server.js --host 0.0.0.0 --auth SECRET    <span class="cmt">⚠️  starts, warns loudly</span></pre>
-    </div>
-
-    <p class="lead" style="margin-top:24px;margin-bottom:12px"><strong style="color:var(--tx2)">Sensitive data is opt-in.</strong> By default only findings and endpoints are shared — you turn everything else on explicitly, in the popup.</p>
-    <div class="share-grid">
-      <div class="share-col on">
-        <h4>Shared by default</h4>
-        <ul>
-          <li>Findings (type, severity, URL, detail)</li>
-          <li>Discovered endpoints</li>
-        </ul>
-      </div>
-      <div class="share-col off">
-        <h4>Off until you enable it</h4>
-        <ul>
-          <li>Full API requests/responses</li>
-          <li>Cookie values</li>
-          <li>Page DOM</li>
-          <li>localStorage</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- STARTUP LOG -->
-  <section id="startup-log">
-    <p class="slabel">Verify it started</p>
-    <h2>What a healthy startup looks like</h2>
-    <p class="lead">Whether launched by Claude Code or run manually, a working bridge prints:</p>
-    <div class="code-block">
-      <pre>WebSocket listening on ws://127.0.0.1:7779
-HTTP API listening on http://127.0.0.1:7780</pre>
-    </div>
-  </section>
-
-  <!-- CLI FLAGS -->
-  <section>
-    <p class="slabel">Reference</p>
-    <h2>Command-line flags</h2>
-    <div class="tbl-wrap">
-      <table class="data-tbl">
-        <thead><tr><th>Flag</th><th>Default</th><th>Meaning</th></tr></thead>
-        <tbody>
-          <tr><td><code>--mcp</code></td><td>off</td><td>Hybrid stdio + localhost WebSocket (use this for Claude Code)</td></tr>
-          <tr><td><code>--host &lt;addr&gt;</code></td><td><code>127.0.0.1</code></td><td>Bind address. Non-localhost requires <code>--auth</code>.</td></tr>
-          <tr><td><code>--auth &lt;token&gt;</code></td><td>none</td><td>Require this token from clients. Mandatory for non-localhost.</td></tr>
-          <tr><td><code>--ws &lt;n&gt;</code></td><td><code>7779</code></td><td>WebSocket port for the extension</td></tr>
-          <tr><td><code>--http &lt;n&gt;</code></td><td><code>7780</code></td><td>HTTP port for MCP/tunnel access</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- MCP TOOLS -->
-  <section>
-    <p class="slabel">Reference</p>
-    <h2>MCP tools exposed</h2>
-    <div class="tbl-wrap">
-      <table class="data-tbl">
-        <thead><tr><th>Tool</th><th>Returns</th></tr></thead>
-        <tbody>
-          <tr><td><code>yansii_status</code></td><td><code>{connected, extensionConnected, findingsAvailable, domainsTracked, lastSync, message}</code></td></tr>
-          <tr><td><code>yansii_get_findings</code></td><td>detected findings (type, severity, URL, detail, tier)</td></tr>
-          <tr><td><code>yansii_get_endpoints</code></td><td>discovered endpoints</td></tr>
-          <tr><td><code>yansii_get_traffic</code></td><td>captured requests/responses <em>(if sharing enabled)</em></td></tr>
-          <tr><td><code>yansii_get_cookies</code></td><td>cookies <em>(if sharing enabled)</em></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:12.5px;color:var(--mut);margin-top:10px">Full list via <code style="color:var(--purple)">tools/list</code>. Verify from a shell:</p>
-    <div class="code-block">
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre>echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node server.js --mcp</pre>
-    </div>
-  </section>
-
-  <!-- USEFUL PROMPTS -->
-  <section>
-    <p class="slabel">Try it</p>
-    <h2>Prompts to try in Claude Code</h2>
-
-    <div class="prompt-cat">
-      <h4>Reading data</h4>
-      <div class="prompt-item">"Show me all YANSII findings for [domain]"</div>
-      <div class="prompt-item">"What API endpoints did YANSII discover?"</div>
-      <div class="prompt-item">"List the confirmed (observed) findings"</div>
-    </div>
-
-    <div class="prompt-cat">
-      <h4>Investigating</h4>
-      <div class="prompt-item">"Take the top YANSII finding and verify it using the captured request/response"</div>
-      <div class="prompt-item">"YANSII flagged a possible IDOR on /api/users/{id} — use the session cookies to test /api/users/2 and compare responses"</div>
-    </div>
-
-    <div class="prompt-cat">
-      <h4>Reporting</h4>
-      <div class="prompt-item">"Generate a bug bounty report for the confirmed finding using YANSII's evidence"</div>
-    </div>
-  </section>
-
-  <!-- ZERO SETUP ALTERNATIVE -->
-  <section>
-    <p class="slabel">No server, no port</p>
-    <h2>Prefer no bridge? Use Export / Import</h2>
-    <p class="lead">Don't want to run a server at all? In the YANSII dashboard, click <strong style="color:var(--tx2)">Export for AI Agent</strong> to download a JSON snapshot, then tell Claude Code <em>"Read this file and investigate."</em> Bring results back in with <strong style="color:var(--tx2)">Import from AI Agent</strong>. No server, no port, no connection — just a file.</p>
-  </section>
-
-  <!-- TROUBLESHOOTING -->
-  <section>
-    <p class="slabel">Troubleshooting</p>
-    <h2>Common issues</h2>
-    <div class="tbl-wrap">
-      <table class="data-tbl">
-        <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
-        <tbody>
-          <tr><td>Extension won't connect</td><td>Is the server running? Confirm the URL is <code>ws://127.0.0.1:7779</code>. Click <span class="kbd">Test Connection</span>.</td></tr>
-          <tr><td>"Connection refused"</td><td>Bridge isn't running. Claude Code starts it via the MCP config, or run <code>node server.js --mcp</code> manually.</td></tr>
-          <tr><td>Claude Code sees no findings</td><td>Extension must show <span class="status-live"><span class="dot"></span>connected</span>. Restart Claude Code to reload the MCP config.</td></tr>
-          <tr><td>"Refuses to start"</td><td>You passed a non-localhost <code>--host</code> without <code>--auth</code>. Add <code>--auth &lt;token&gt;</code> or drop <code>--host</code>.</td></tr>
-          <tr><td>Status stuck yellow</td><td>Extension heartbeat runs every 10s; the bridge marks disconnected after 30s. Reconnect from the popup.</td></tr>
-        </tbody>
-      </table>
-    </div>
   </section>
 
 </main>
@@ -447,21 +321,20 @@ HTTP API listening on http://127.0.0.1:7780</pre>
   <div class="footer-in">
     <div class="footer-links">
       <a href="/">← Back to yansii.in</a>
+      <a href="https://github.com/Yansii-dev/yansii-bridge" target="_blank" rel="noopener">Bridge repo</a>
       <a href="https://github.com/Yansii-dev/yansii-free" target="_blank" rel="noopener">YANSII GitHub</a>
-      <a href="https://github.com/Yansii-dev/yansii-bridge" target="_blank" rel="noopener">Bridge GitHub</a>
-      <a href="mailto:hello@yansii.in">Support: hello@yansii.in</a>
+      <a href="mailto:hello@yansii.in">hello@yansii.in</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
     </div>
-    <p class="footer-pro-note">The bridge is a Pro feature. <a href="/pricing">Learn about Pro →</a></p>
+    <p class="footer-note">The bridge is a Pro feature. <a href="/pricing">Learn about Pro →</a></p>
   </div>
 </footer>
 
 <script>
 function copyCode(btn) {
   const pre = btn.closest('.code-block').querySelector('pre');
-  const text = pre.textContent;
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(pre.textContent).then(() => {
     btn.textContent = 'Copied';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
