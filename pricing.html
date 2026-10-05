@@ -95,6 +95,10 @@
     .buy-btn-pro{background:var(--red);color:#fff;box-shadow:0 0 20px rgba(232,64,58,.18)}
     .buy-btn-pro:hover{background:#d63630;box-shadow:0 0 30px rgba(232,64,58,.32);transform:translateY(-1px)}
     .buy-note{font-size:11px;color:var(--dim);text-align:center;margin-top:10px}
+    .buy-pair{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+    .buy-disclosure{font-size:12px;color:var(--mut);text-align:center;line-height:1.55;margin-top:8px}
+    .dodo-legal{font-size:11.5px;color:var(--dim);text-align:center;margin-top:32px;line-height:1.5}
+    .dodo-legal a{color:var(--mut);text-decoration:underline}
 
     /* INDIA CALLOUT */
     .india-box{margin-top:20px;padding:14px 16px;background:rgba(88,166,255,.04);border:1px solid rgba(88,166,255,.12);border-radius:10px;font-size:12.5px;color:var(--mut);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -225,22 +229,26 @@
           <li><span class="dot"></span><span><span class="fn">Claude Code Bridge (MCP)</span> — <a href="/bridge" style="color:var(--blue)">setup guide</a></span></li>
         </ul>
 
-        <!-- PLACEHOLDER BUY BUTTONS — replace data-checkout-url with the real
-             Dodo Payments checkout link for each plan when Pro goes live.
-             Until then, these scroll to the email notify form instead. -->
-        <button
-          type="button"
-          class="buy-btn buy-btn-pro"
-          id="buy-pro-btn"
-          data-checkout-url-monthly="REPLACE_WITH_DODO_MONTHLY_CHECKOUT_URL"
-          data-checkout-url-annual="REPLACE_WITH_DODO_ANNUAL_CHECKOUT_URL"
-          onclick="handleBuyClick()">
-          Get notified — not live yet
-        </button>
-        <p class="buy-note">Checkout opens here once Pro launches</p>
+        <!--
+          DODO CHECKOUT URLS — replace the 2 href placeholders below
+          with your real Dodo Payments checkout links (Oct 10).
+          Dodo handles USD/INR by visitor location automatically.
+          Monthly: replace REPLACE_WITH_DODO_MONTHLY_CHECKOUT_URL
+          Annual:  replace REPLACE_WITH_DODO_ANNUAL_CHECKOUT_URL
+        -->
+        <div class="buy-pair m-only">
+          <a href="REPLACE_WITH_DODO_MONTHLY_CHECKOUT_URL" target="_blank" rel="noopener" class="buy-btn buy-btn-pro">Subscribe — $19/month</a>
+          <p class="buy-disclosure">Billed monthly. Renews automatically until cancelled.<br>Cancel anytime — Pro stays active through end of billing period.</p>
+        </div>
+        <div class="buy-pair y-only">
+          <a href="REPLACE_WITH_DODO_ANNUAL_CHECKOUT_URL" target="_blank" rel="noopener" class="buy-btn buy-btn-pro">Subscribe — $179/year</a>
+          <p class="buy-disclosure">Billed annually. Renews automatically until cancelled.<br>Cancel anytime — Pro stays active through end of billing period.</p>
+        </div>
       </div>
 
     </div>
+
+    <p class="dodo-legal">Payments processed by Dodo Payments. See <a href="https://www.dodopayments.com/legal/buyer-terms" target="_blank" rel="noopener">buyer terms</a>.</p>
   </div>
 </section>
 
@@ -380,20 +388,6 @@ toggle.addEventListener('click', () => {
   lblM.classList.toggle('active', isAnnual);
   lblY.classList.toggle('active', !isAnnual);
 });
-
-// Buy button — placeholder until Dodo checkout URLs are added
-function handleBuyClick() {
-  const btn = document.getElementById('buy-pro-btn');
-  const isAnnual = pricingSection.dataset.annual === 'true';
-  const url = isAnnual ? btn.dataset.checkoutUrlAnnual : btn.dataset.checkoutUrlMonthly;
-  // Once real Dodo URLs replace the REPLACE_WITH_... placeholders above,
-  // this will redirect straight to checkout instead of scrolling.
-  if (url && !url.startsWith('REPLACE_WITH_')) {
-    window.location.href = url;
-  } else {
-    window.open('https://x.com/yansii_ai', '_blank');
-  }
-}
 
 document.querySelectorAll('.faq-item').forEach(d => { d.addEventListener('toggle', () => { d.querySelector('.faq-t').textContent = d.open ? '−' : '+'; }); });
 </script>
