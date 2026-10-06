@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YANSII — Pro Features</title>
+  <meta name="description" content="YANSII Pro: 21 advanced capabilities for bug bounty hunting. AI Copilot, Request Replay, Role Comparison, Memory, and more.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%230d1117'/%3E%3Ccircle cx='256' cy='260' r='26' stroke='%23e8403a' stroke-width='7' fill='none' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='12' fill='%23e8403a'/%3E%3C/svg%3E">
+  <style>
+    @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/inter-400.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/inter-500.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/inter-600.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/inter-700.woff2) format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/inter-800.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/jbmono-400.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/jbmono-500.woff2) format("woff2")}
+    @font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/jbmono-600.woff2) format("woff2")}
+  </style>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#0d1117;--bg2:#131a23;--card:#161b22;--brd:#21262d;--brdl:#30363d;--red:#e8403a;--blue:#58a6ff;--purple:#bc8cff;--green:#3fb950;--orange:#f0883e;--tx:#f0f6fc;--tx2:#c9d1d9;--mut:#8b949e;--dim:#484f58}
+    body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+    a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+    .nav{border-bottom:1px solid var(--brd);background:rgba(13,17,23,.9);backdrop-filter:blur(16px);position:sticky;top:0;z-index:10}
+    .nav-in{max-width:860px;margin:0 auto;padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tx)}
+    .nav-logo svg{width:40px;height:40px;filter:drop-shadow(0 0 12px rgba(232,64,58,.15))}
+    .nav-logo span{font-weight:700;font-size:18px;letter-spacing:-.02em}
+    .nav-links{display:flex;gap:18px;list-style:none}
+    .nav-links a{color:var(--mut);font-size:13px;font-weight:500}
+    .nav-cta{background:var(--red);color:#fff!important;padding:6px 16px;border-radius:8px;font-weight:600}
+
+    main{max-width:800px;margin:0 auto;padding:56px 24px 80px}
+    .hero{text-align:center;margin-bottom:56px}
+    .badge{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:4px 12px;border-radius:6px;letter-spacing:.04em;background:var(--red);color:#fff;display:inline-block;margin-bottom:16px}
+    h1{font-size:clamp(1.7rem,3.8vw,2.4rem);font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+    .hero p{font-size:15px;color:var(--mut);max-width:560px;margin:0 auto;line-height:1.7}
+
+    .feature{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--brd)}
+    .feature:last-of-type{border-bottom:none;margin-bottom:32px}
+    .feature-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-bottom:8px}
+    .feature h2{font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em}
+    .feature h2 .pro-note{font-size:11px;color:var(--dim);font-weight:500;margin-left:6px}
+    .feature p{font-size:13.5px;color:var(--mut);line-height:1.75;margin-bottom:12px;max-width:640px}
+    .feature p strong{color:var(--tx2)}
+    .feature a.guide{font-size:13px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:5px;margin-top:4px}
+
+    .shot{width:100%;max-width:640px;background:var(--bg2);border:1px solid var(--brdl);border-radius:12px;overflow:hidden;margin:14px 0}
+    .shot img{width:100%;height:auto;display:block}
+    .shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+    @media(max-width:600px){.shot-pair{grid-template-columns:1fr}}
+    .shot-pair .shot{margin:0}
+    .shot-label{font-size:10.5px;color:var(--dim);text-align:center;font-family:'JetBrains Mono',monospace;padding:6px 0}
+
+    .cta-box{text-align:center;padding:40px 24px;background:var(--card);border:1px solid var(--brd);border-radius:16px;margin-top:48px}
+    .cta-box p{font-size:14px;color:var(--mut);margin-bottom:18px}
+    .cta{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:12px 24px;border-radius:10px;text-decoration:none;background:var(--red);color:#fff;box-shadow:0 0 20px rgba(232,64,58,.18);transition:all .3s}
+    .cta:hover{text-decoration:none;background:#d63630;transform:translateY(-1px)}
+
+    footer{border-top:1px solid var(--brd);padding:32px 24px;margin-top:56px}
+    .ftr{max-width:800px;margin:0 auto}
+    .ftr-links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+    .ftr-links a{color:var(--mut);font-size:13px}
+    .ftr-copy{font-size:11px;color:var(--dim)}
+  </style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a href="/" class="nav-logo"><svg viewBox="0 0 512 512" fill="none"><path d="M175 90L175 340Q175 420 240 445" stroke="#e8403a" stroke-width="22" fill="none" stroke-linecap="round" opacity=".5"/><path d="M337 90L337 340Q337 420 272 445" stroke="#e8403a" stroke-width="22" fill="none" stroke-linecap="round" opacity=".5"/><circle cx="256" cy="260" r="55" stroke="#e8403a" stroke-width="7" fill="none" opacity=".15"/><circle cx="256" cy="260" r="35" stroke="#e8403a" stroke-width="8" fill="none" opacity=".3"/><circle cx="256" cy="260" r="16" fill="#e8403a"/></svg><span>YANSII</span></a>
+  <ul class="nav-links"><li><a href="/activate">Activate</a></li><li><a href="/pricing" class="nav-cta">Get Pro</a></li></ul>
+</div></header>
+
+<main>
+  <div class="hero">
+    <span class="badge">PRO</span>
+    <h1>YANSII Pro Features</h1>
+    <p>Everything in Free, plus 21 advanced capabilities for serious bug bounty hunting.</p>
+  </div>
+
+  <!-- 1. AI Copilot -->
+  <div class="feature">
+    <div class="feature-num">01</div>
+    <h2>AI Copilot (Quick &amp; Deep)</h2>
+    <p>Real-time hunting assistant. Quick mode gives instant suggestions as you browse. Deep mode analyzes the full page context and recommends what to test next.</p>
+    <div class="shot"><img src="/assets/screenshots/5__AI_Copilot_side_panel_with_suggestions_showing.png" alt="AI Copilot side panel with suggestions"></div>
+    <div class="shot-label">AI Copilot panel with pattern-enhanced suggestions</div>
+  </div>
+
+  <!-- 2. AI Verify -->
+  <div class="feature">
+    <div class="feature-num">02</div>
+    <h2>AI-Assisted Verify</h2>
+    <p>AI reviews each finding and flags likely false positives before you spend time on them. Reduces noise without hiding real issues.</p>
+    <div class="shot"><img src="/assets/screenshots/6__AI_Verify_toggle_turned_ON.png" alt="AI Verify toggle turned ON in the popup"></div>
+    <div class="shot-label">AI-assisted verify enabled (~500 tokens/call)</div>
+  </div>
+
+  <!-- 3. Deep Dive -->
+  <div class="feature">
+    <div class="feature-num">03</div>
+    <h2>Deep Dive Analysis</h2>
+    <p>Select any finding and get a detailed AI breakdown — what it means, how to reproduce it, what to try next, and whether it's likely real.</p>
+    <div class="shot-pair">
+      <div class="shot"><img src="/assets/screenshots/7_1_Deep_Dive_analysis_panel_on_a_finding_-_dashboard.png" alt="Deep Dive analysis in the dashboard"></div>
+      <div class="shot"><img src="/assets/screenshots/7_2_Deep_Dive_analysis_panel_on_a_finding_-_Side_panel.png" alt="Deep Dive analysis in the side panel"></div>
+    </div>
+    <div class="shot-label">Deep Dive in dashboard (left) and side panel (right)</div>
+  </div>
+
+  <!-- 4. JS + Request Analysis -->
+  <div class="feature">
+    <div class="feature-num">04</div>
+    <h2>AI JS + Request Analysis</h2>
+    <p>Automatically analyzes JavaScript bundles for hardcoded secrets and API traffic patterns for IDOR and auth issues.</p>
+    <div class="shot"><img src="/assets/screenshots/8__JS___Request_Analysis_toggle_ON.png" alt="JS + Request Analysis toggle ON"></div>
+    <div class="shot-label">Auto-scan JS files and API traffic patterns</div>
+  </div>
+
+  <!-- 5. Role Comparison -->
+  <div class="feature">
+    <div class="feature-num">05</div>
+    <h2>Role Comparison</h2>
+    <p>Save session profiles (Admin, User, Unauth) and diff what each role can access. Finds broken access control and privilege escalation automatically.</p>
+    <div class="shot"><img src="/assets/screenshots/9__Role_Profiles_with_a_saved_role.png" alt="Role Profiles with a saved Admin role"></div>
+    <div class="shot-label">Role profiles with XSS Probe, Auto Crawl + Test actions</div>
+  </div>
+
+  <!-- 6. Request Replay -->
+  <div class="feature">
+    <div class="feature-num">06</div>
+    <h2>Request Replay</h2>
+    <p>Capture any request, modify headers, cookies, or body, and replay it. Test auth bypasses, parameter tampering, and IDOR without leaving the extension.</p>
+    <div class="shot"><img src="/assets/screenshots/10__Request_Replay_with_modified_headers.png" alt="Request Replay with modified headers and response diff"></div>
+    <div class="shot-label">Replay with ID+1 modification — original vs modified response</div>
+  </div>
+
+  <!-- 7. Memory -->
+  <div class="feature">
+    <div class="feature-num">07</div>
+    <h2>Agentic Memory</h2>
+    <p>YANSII learns patterns across sessions — remembers endpoints, parameter behaviors, and attack surface. Gets smarter the more you hunt.</p>
+    <div class="shot"><img src="/assets/screenshots/11__Memory_patterns_indicator__42_patterns_.png" alt="Memory patterns indicator showing 42 patterns"></div>
+    <div class="shot-label">42 patterns learned · Bridge connected · 4 AI calls</div>
+  </div>
+
+  <!-- 8. Parameter Discovery -->
+  <div class="feature">
+    <div class="feature-num">08</div>
+    <h2>Parameter Discovery</h2>
+    <p>Finds hidden parameters in forms, API calls, and JavaScript. Flags sensitive ones like <code>role</code>, <code>admin</code>, <code>price</code>, <code>plan</code> that suggest mass assignment or privilege escalation.</p>
+  </div>
+
+  <!-- 9. GraphQL Scanner -->
+  <div class="feature">
+    <div class="feature-num">09</div>
+    <h2>GraphQL Scanner</h2>
+    <p>Detects GraphQL endpoints, tests introspection, and identifies resolver-level vulnerabilities. Works on both REST-wrapped and native GraphQL APIs.</p>
+  </div>
+
+  <!-- 10. Report Builder -->
+  <div class="feature">
+    <div class="feature-num">10</div>
+    <h2>Report Builder</h2>
+    <p>Export your findings as a professional markdown report grouped by domain and severity. Ready for bug bounty submissions.</p>
+  </div>
+
+  <!-- 11. Claude Code Bridge -->
+  <div class="feature">
+    <div class="feature-num">11</div>
+    <h2>Claude Code Bridge <span class="pro-note">(paid Pro only — not in trial)</span></h2>
+    <p>Connect to Claude Code CLI for data sync — pull findings, traffic, endpoints, cookies into your terminal. Automate analysis from the command line.</p>
+    <div class="shot"><img src="/assets/screenshots/12__Bridge_section_showing_Connected.png" alt="Bridge section showing Connected status with data sharing controls"></div>
+    <div class="shot-label">Bridge connected — findings + endpoints shared, sensitive data opt-in</div>
+    <a href="/bridge" class="guide">Setup guide → </a>
+  </div>
+
+  <!-- 12. Budget Controls -->
+  <div class="feature">
+    <div class="feature-num">12</div>
+    <h2>Budget Controls</h2>
+    <p>Set a monthly AI spending limit and choose what happens when you hit it — ask, stop, or keep going. Track usage in real time.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <p>Ready to upgrade?</p>
+    <a href="/pricing" class="cta">Get Pro →</a>
+  </div>
+</main>
+
+<footer><div class="ftr">
+  <div class="ftr-links"><a href="/activate">Activate</a><a href="/welcome">Welcome</a><a href="/bridge">Bridge</a><a href="/pricing">Pricing</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="mailto:hello@yansii.in">hello@yansii.in</a></div>
+  <p class="ftr-copy">© 2026 YANSII</p>
+</div></footer>
+</body>
+</html>
