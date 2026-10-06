@@ -48,11 +48,13 @@
     .feature p strong{color:var(--tx2)}
     .feature a.guide{font-size:13px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:5px;margin-top:4px}
 
-    .shot{width:100%;max-width:640px;background:var(--bg2);border:1px solid var(--brdl);border-radius:12px;overflow:hidden;margin:14px 0}
+    .shot{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--brdl);border-radius:12px;overflow:hidden;margin:14px 0}
     .shot img{width:100%;height:auto;display:block}
+    .shot.wide{max-width:640px}
+    .shot.full{max-width:100%}
     .shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
     @media(max-width:600px){.shot-pair{grid-template-columns:1fr}}
-    .shot-pair .shot{margin:0}
+    .shot-pair .shot{margin:0;max-width:100%}
     .shot-label{font-size:10.5px;color:var(--dim);text-align:center;font-family:'JetBrains Mono',monospace;padding:6px 0}
 
     .cta-box{text-align:center;padding:40px 24px;background:var(--card);border:1px solid var(--brd);border-radius:16px;margin-top:48px}
@@ -133,7 +135,7 @@
     <div class="feature-num">06</div>
     <h2>Request Replay</h2>
     <p>Capture any request, modify headers, cookies, or body, and replay it. Test auth bypasses, parameter tampering, and IDOR without leaving the extension.</p>
-    <div class="shot"><img src="/assets/screenshots/10-request-replay.png" alt="Request Replay with modified headers and response diff"></div>
+    <div class="shot wide"><img src="/assets/screenshots/10-request-replay.png" alt="Request Replay with modified headers and response diff"></div>
     <div class="shot-label">Replay with ID+1 modification — original vs modified response</div>
   </div>
 
@@ -142,7 +144,7 @@
     <div class="feature-num">07</div>
     <h2>Agentic Memory</h2>
     <p>YANSII learns patterns across sessions — remembers endpoints, parameter behaviors, and attack surface. Gets smarter the more you hunt.</p>
-    <div class="shot"><img src="/assets/screenshots/11-memory-patterns.png" alt="Memory patterns indicator showing 42 patterns"></div>
+    <div class="shot full"><img src="/assets/screenshots/11-memory-patterns.png" alt="Memory patterns indicator showing 42 patterns"></div>
     <div class="shot-label">42 patterns learned · Bridge connected · 4 AI calls</div>
   </div>
 
