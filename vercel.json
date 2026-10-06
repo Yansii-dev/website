@@ -7,7 +7,15 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/feedback", "destination": "/feedback.html" },
     { "source": "/bridge", "destination": "/bridge.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/welcome", "destination": "/welcome.html" },
+    { "source": "/activate", "destination": "/activate.html" },
+    { "source": "/pro-features", "destination": "/pro-features.html" },
+    { "source": "/activate", "destination": "/activate.html" },
+    { "source": "/welcome", "destination": "/welcome.html" },
+    { "source": "/activate", "destination": "/activate.html" },
+    { "source": "/pro-features", "destination": "/pro-features.html" },
+    { "source": "/activate", "destination": "/activate.html" }
   ],
   "headers": [
     {
