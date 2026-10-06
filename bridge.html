@@ -281,18 +281,75 @@ npm install</pre>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-n">3</span><h3>Connect from the extension</h3></div>
-      <p>Open YANSII → scroll to the <strong>Claude Code Bridge</strong> section (visible with a Pro license) → toggle to <strong>Connected</strong>. The status indicator shows the WebSocket connection state.</p>
+      <div class="step-head"><span class="step-n">3</span><h3>Start the bridge server</h3></div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>cd yansii-bridge
+node server.js --mcp</pre>
+      </div>
+      <p>The bridge starts a WebSocket server on <code style="color:var(--purple)">localhost:7779</code> and connects to Claude Code via MCP. Keep this terminal open — the bridge runs as long as the process is running.</p>
     </div>
 
     <div class="step">
-      <div class="step-head"><span class="step-n">4</span><h3>Verify in Claude Code</h3></div>
+      <div class="step-head"><span class="step-n">4</span><h3>Connect from the extension</h3></div>
+      <p>Open YANSII → scroll to the <strong>Claude Code Bridge</strong> section (visible with a paid Pro license) → click <strong>Connect</strong>. The status indicator shows the WebSocket connection state.</p>
+      <p>The default Bridge URL is <code style="color:var(--purple)">ws://127.0.0.1:7779</code>. Leave it as-is for local setups.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">5</span><h3>Verify in Claude Code</h3></div>
       <p>Ask Claude Code:</p>
       <div class="code-block">
         <pre><span class="s">"Use yansii_get_findings to show my current scan results"</span></pre>
       </div>
       <p>If findings come back, the bridge is working.</p>
     </div>
+  </section>
+
+  <!-- REMOTE SETUP -->
+  <section>
+    <p class="slabel">Advanced</p>
+    <h2>Remote Setup — Claude Code on a VPS</h2>
+    <p class="lead">If Claude Code runs on a remote VPS and Chrome runs on your local machine, you need an SSH tunnel so the extension can reach the bridge server.</p>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">1</span><h3>Install and start the bridge on your VPS</h3></div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>cd yansii-bridge
+node server.js --mcp</pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">2</span><h3>Create an SSH tunnel from your local machine</h3></div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>ssh -L 7779:localhost:7779 user@your-vps-ip</pre>
+      </div>
+      <p>This forwards your local port 7779 to the bridge running on the VPS. Keep this terminal open.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">3</span><h3>Connect the extension</h3></div>
+      <p>In the YANSII extension, set the Bridge URL to:</p>
+      <div class="code-block">
+        <pre>ws://127.0.0.1:7779</pre>
+      </div>
+      <p>The tunnel makes it look like the bridge is running locally even though it's on the VPS.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-head"><span class="step-n">4</span><h3>Secure with an Auth Token (recommended for persistent setups)</h3></div>
+      <p>Generate a token on the VPS:</p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>node server.js --mcp --generate-token</pre>
+      </div>
+      <p>Copy the token and paste it in the extension's <strong>Auth Token</strong> field. This secures the WebSocket connection over the tunnel.</p>
+    </div>
+
+    <p style="font-size:12.5px;color:var(--mut);padding:14px 16px;background:rgba(240,136,62,.04);border:1px solid rgba(240,136,62,.15);border-radius:10px;margin-top:8px;line-height:1.65">The bridge must be accessible on localhost or via SSH tunnel. Direct remote WebSocket connections to non-localhost addresses are blocked by the extension for security.</p>
   </section>
 
   <!-- RECOMMENDED SETUP -->
