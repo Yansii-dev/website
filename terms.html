@@ -80,7 +80,7 @@
 <main>
   <p class="label">Legal</p>
   <h1>Terms of Service</h1>
-  <p class="date">Effective: October 11, 2026</p>
+  <p class="date">Effective: October 16, 2026</p>
 
   <div class="prose">
 
@@ -92,8 +92,8 @@
     <p>YANSII is a Chrome browser extension for AI-assisted security testing. It passively scans web pages you visit for potential vulnerabilities, captures traffic data, and provides an AI copilot to suggest what to test next.</p>
     <p>YANSII is available in two tiers:</p>
     <ul>
-      <li><strong>Free</strong> — 46 passive scanners, dashboard, crawler, exports. No cost, no account required.</li>
-      <li><strong>Pro</strong> — All Free features plus AI Copilot, agentic memory, request replay, role comparison, parameter discovery, GraphQL scanning, report builder, and other advanced features. Requires a paid subscription.</li>
+      <li><strong>Free</strong> — 55 passive scanners, Confidence Gate dashboard (Confirmed / Signals / All tabs), Recon Intelligence tab, Scanner Activity Log, AI-Ready Fix Prompts, crawler with robots.txt compliance, exports (JSON, CSV, Markdown), Safe Mode (enabled by default). No cost, no account required.</li>
+      <li><strong>Pro</strong> — All Free features plus 68 total scanners (55 free + 13 Pro-only), Intelligence Layer (Application Model, Hypothesis Engine, Chain Synthesis, Adaptive Scanning, Session Memory, Impact Assessment), 6 Framework Deep Scanners (Firebase, GraphQL, Next.js, WordPress, Laravel, Drupal), Deterministic Validation, Custom Scanner Rules, Scanner Graph, Source Map Deep Analysis, Report Builder with HackerOne/Bugcrowd templates, SARIF export, AI Copilot, Active Validation, Request Replay, Access Control Testing, and Parameter Discovery. Requires a paid subscription.</li>
     </ul>
     <div class="highlight">YANSII is a testing assistant, not a guarantee of security. It does not replace professional penetration testing, code review, or security audits.</div>
 
@@ -109,6 +109,9 @@
     </ul>
     <div class="highlight"><strong>You are solely responsible</strong> for ensuring your testing activities are authorized and lawful. YANSII does not verify authorization on your behalf.</div>
 
+    <h2>3a. Custom Scanner Rules</h2>
+    <p>Pro users can create custom scanning rules in JSON format. Custom Scanner Rules are user-created and user-responsible. YANSII does not validate that custom rules comply with authorized testing scope. Users must ensure custom rules do not violate target program rules or applicable law. Custom rules execute with the same permissions as built-in scanners.</p>
+
     <h2>4. API Keys (BYOK)</h2>
     <p>YANSII's AI features use a Bring Your Own Key (BYOK) model. You provide your own API key from a supported AI provider (Anthropic, OpenAI, Groq, or OpenRouter). Your API key is stored locally in your browser via <code>chrome.storage</code> and is sent directly to the AI provider you selected — never to YANSII servers.</p>
     <p>You are responsible for your own API usage costs. Typical AI costs range from $5–15 per month depending on usage intensity and provider. YANSII does not bill for or control API usage on your key.</p>
@@ -122,7 +125,7 @@
     <p>For refund requests, billing questions, or payment disputes, contact Dodo Payments directly. Their buyer terms govern all purchase transactions: <a href="https://dodopayments.com/legal/buyer-terms" target="_blank" rel="noopener">dodopayments.com/legal/buyer-terms</a>.</p>
 
     <h2>6. Data Handling</h2>
-    <p>YANSII stores all scan findings, settings, memory patterns, and captured traffic locally on your device using <code>chrome.storage.local</code>. No finding data, browsing history, or captured traffic is sent to YANSII servers.</p>
+    <p>YANSII stores all scan findings, settings, memory patterns, captured traffic, and Intelligence Layer data (application models, hypotheses, attack chains, adaptive scanning weights, session memory, impact assessments, custom scanner rules) locally on your device using <code>chrome.storage.local</code>. No finding data, browsing history, captured traffic, or Intelligence Layer data is sent to YANSII servers.</p>
     <p>When you use AI features (Copilot, Deep Analysis), page context data is sent directly from your browser to your chosen AI provider using your own API key. This data is used solely for generating security testing suggestions and is subject to your AI provider's terms and privacy policy.</p>
     <p>The only data sent to YANSII infrastructure is license key validation requests to the Cloudflare Worker at <code>api.yansii.in</code>. These requests contain your license key and a device fingerprint. License keys are redacted in server logs.</p>
     <p>The use of information received from Google APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
@@ -136,7 +139,23 @@
 
     <h2>8. Disclaimers</h2>
     <p>YANSII is provided "as is" without warranties of any kind, express or implied. We do not warrant that the extension will detect all vulnerabilities, that findings are accurate, or that the service will be uninterrupted or error-free.</p>
-    <p>YANSII uses a three-tier detection system (Detected, Validated, Confirmed). Passive scan results are indicators, not confirmed vulnerabilities. You are responsible for verifying all findings before acting on them or including them in any report.</p>
+    <p>YANSII uses a four-tier confidence system:</p>
+    <ul>
+      <li><strong>Confirmed</strong> — deterministically validated with evidence</li>
+      <li><strong>Likely</strong> — strong signals, high confidence</li>
+      <li><strong>Possible</strong> — indicators present, needs manual verification</li>
+      <li><strong>Noise</strong> — low confidence, informational only</li>
+    </ul>
+    <p>Passive scan results are indicators, not confirmed vulnerabilities. You are responsible for verifying all findings before acting on them or including them in any report.</p>
+    <p><strong>Intelligence Layer outputs</strong> (hypotheses, attack chains, CVSS scores, bounty estimates) are algorithmic approximations. They are not professional security assessments, legal advice, or compliance determinations. Users must independently verify all findings before reporting. Specifically:</p>
+    <ul>
+      <li>CVSS scores are calculated using the CVSS 3.1 base score formula and are estimates, not official assessments</li>
+      <li>Bounty estimates are rough ranges based on historical data and should not be relied upon for financial decisions</li>
+      <li>Regulatory flags (GDPR, PCI DSS, HIPAA, SOC 2, CCPA) indicate potential relevance only — they are not compliance determinations and do not constitute legal advice</li>
+      <li>Hypotheses are predictions, not confirmed vulnerabilities</li>
+      <li>Attack chains are algorithmically inferred and must be manually validated</li>
+      <li>Report templates (HackerOne, Bugcrowd) are formatting aids — users are responsible for accuracy and completeness of submitted reports</li>
+    </ul>
     <p>To the maximum extent permitted by applicable law, YANSII and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, revenue, data, or business opportunities arising from your use of the extension. Total liability for any claim shall not exceed the amount you paid for Pro in the 12 months preceding the claim.</p>
     <div class="highlight">You agree to indemnify and hold YANSII harmless from any claims, damages, or expenses arising from your use of the extension, including unauthorized or unlawful testing activities.</div>
 
