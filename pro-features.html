@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YANSII™ — Pro Features</title>
-  <meta name="description" content="YANSII Pro: 21 advanced capabilities for bug bounty hunting. AI Copilot, Request Replay, Role Comparison, Memory, and more.">
+  <meta name="description" content="YANSII Pro: Intelligence Layer, 68 scanners, deterministic validation, custom rules, AI Copilot, and more for serious bug bounty hunting.">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%230d1117'/%3E%3Ccircle cx='256' cy='260' r='26' stroke='%23e8403a' stroke-width='7' fill='none' opacity='.4'/%3E%3Ccircle cx='256' cy='260' r='12' fill='%23e8403a'/%3E%3C/svg%3E">
   <style>
@@ -79,7 +79,7 @@
   <div class="hero">
     <span class="badge">PRO</span>
     <h1>YANSII<span style="color:#484f58">™</span> Pro Features</h1>
-    <p>Everything in Free, plus 21 advanced capabilities for serious bug bounty hunting.</p>
+    <p>Everything in Free (55 scanners), plus 13 additional scanners, the Intelligence Layer, 6 framework deep scanners, and advanced hunting tools.</p>
   </div>
 
   <!-- 1. AI Copilot -->
@@ -162,11 +162,11 @@
     <p>Detects GraphQL endpoints, tests introspection, and identifies resolver-level vulnerabilities. Works on both REST-wrapped and native GraphQL APIs.</p>
   </div>
 
-  <!-- 10. Report Builder -->
+  <!-- 10. Source Map Deep Analysis -->
   <div class="feature">
     <div class="feature-num">10</div>
-    <h2>Report Builder</h2>
-    <p>Export your findings as a professional markdown report grouped by domain and severity. Ready for bug bounty submissions.</p>
+    <h2>Source Map Deep Analysis</h2>
+    <p>Detects and analyzes exposed source maps. Reconstructs original source code structure, identifies hardcoded secrets, API endpoints, and internal paths that shouldn't be publicly accessible.</p>
   </div>
 
   <!-- 11. Claude Code Bridge -->
@@ -187,6 +187,61 @@
     <div style="margin-top:12px;padding:10px 14px;background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.2);border-radius:8px;font-size:13px;color:var(--tx2);line-height:1.7">
       <strong style="color:var(--orange)">Anthropic API keys:</strong> Anthropic requires workspace-scoped API keys. Go to <a href="https://console.anthropic.com" target="_blank" rel="noopener" style="color:var(--blue)">console.anthropic.com</a>, select a <strong>Workspace</strong> (not org-level settings), then create a new key inside that workspace. Org-level keys won't work. OpenAI, Groq, and OpenRouter keys work without any special setup.
     </div>
+  </div>
+
+  <!-- 13. Intelligence Layer -->
+  <div class="feature">
+    <div class="feature-num">13</div>
+    <h2>Intelligence Layer</h2>
+    <p>A 6-component reasoning engine that runs <strong>entirely in your browser</strong> — no external API calls. It uses deterministic algorithms, pattern matching, and Bayesian inference to make your scanning smarter.</p>
+    <p><strong>Application Model</strong> — builds a live profile of the target (framework, endpoints, auth type, API surface, security posture).</p>
+    <p><strong>Hypothesis Engine</strong> — generates vulnerability predictions based on the Application Model using local pattern matching.</p>
+    <p><strong>Chain Synthesis</strong> — links individual findings into multi-step attack chains (e.g., CORS + missing auth = account takeover).</p>
+    <p><strong>Adaptive Scanning</strong> — adjusts scanner priorities based on WAF detection, target maturity, and Bayesian belief updates.</p>
+    <p><strong>Session Memory</strong> — persists anonymized patterns across sessions (target archetypes, WAF effectiveness, vulnerability frequencies). No PII. Capped at 500 entries with 6-month decay.</p>
+    <p><strong>Impact Assessment</strong> — CVSS 3.1 base scores, bounty range estimates, and regulatory flags (GDPR, PCI DSS, HIPAA, SOC 2, CCPA). All local calculations.</p>
+  </div>
+
+  <!-- 14. Deterministic Validation -->
+  <div class="feature">
+    <div class="feature-num">14</div>
+    <h2>Deterministic Validation</h2>
+    <p>A non-AI code-level validation layer that checks findings for exploitability. XSS context analysis, CORS exploitability checks, open redirect validation, CSP evaluation, cookie flag verification.</p>
+    <p>Returns confidence levels: <strong>confirmed</strong>, <strong>likely</strong>, <strong>unconfirmed</strong>, or <strong>false_positive</strong>. Auto-suppresses false positives with specific reasons. Runs entirely locally.</p>
+  </div>
+
+  <!-- 15. Custom Scanner Rules -->
+  <div class="feature">
+    <div class="feature-num">15</div>
+    <h2>Custom Scanner Rules</h2>
+    <p>Create custom scanning rules in JSON format — regex body/header matching, header checks, cookie checks. Import and export rules as local JSON files. Rules execute with the same permissions as built-in scanners.</p>
+  </div>
+
+  <!-- 16. Scanner Graph -->
+  <div class="feature">
+    <div class="feature-num">16</div>
+    <h2>Scanner Graph</h2>
+    <p>Event-driven automation: scanners trigger other scanners based on findings. Detecting GraphQL triggers the GraphQL deep scanner. Detecting Firebase triggers Firebase-specific checks. Fully configurable chains.</p>
+  </div>
+
+  <!-- 17. Framework Deep Scanners -->
+  <div class="feature">
+    <div class="feature-num">17</div>
+    <h2>6 Framework Deep Scanners</h2>
+    <p>Specialized scanners for popular frameworks and platforms. Each runs targeted checks for known vulnerability classes specific to that stack.</p>
+    <p><strong>Firebase</strong> — misconfigured Firestore rules, open storage buckets, exposed API keys.<br>
+    <strong>GraphQL</strong> — introspection leaks, query batching abuse, resolver-level auth issues.<br>
+    <strong>Next.js</strong> — SSR data exposure, API route auth bypass, middleware misconfiguration.<br>
+    <strong>WordPress</strong> — plugin vulnerabilities, user enumeration, XML-RPC abuse.<br>
+    <strong>Laravel</strong> — debug mode exposure, mass assignment, route misconfiguration.<br>
+    <strong>Drupal</strong> — access bypass, entity exposure, unsafe deserialization.</p>
+  </div>
+
+  <!-- 18. Report Builder (updated) -->
+  <div class="feature">
+    <div class="feature-num">18</div>
+    <h2>Report Builder (HackerOne &amp; Bugcrowd)</h2>
+    <p>Generate professional vulnerability reports in <strong>HackerOne</strong> and <strong>Bugcrowd</strong> submission formats. Includes scope-aware filtering, CVSS scores, attack chain narratives, and remediation steps. Export as enhanced Markdown with executive summary, or as <strong>SARIF</strong> for CI/CD integration.</p>
   </div>
 
   <!-- CTA -->
