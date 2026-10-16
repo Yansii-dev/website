@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YANSII™ — Security testing copilot for your browser</title>
-  <meta name="description" content="Free Chrome extension that scans web pages for security issues as you browse. 46 passive checks, three-tier findings, runs entirely locally. No account needed.">
+  <meta name="description" content="Free Chrome extension that scans web pages for security issues as you browse. 55+ passive checks, four-tier findings, runs entirely locally. No account needed.">
   <meta name="theme-color" content="#0d1117">
   <meta property="og:title" content="YANSII™ — Security testing copilot for your browser">
-  <meta property="og:description" content="Free Chrome extension for passive security scanning. 46 checks, three-tier findings, runs locally. Open source.">
+  <meta property="og:description" content="Free Chrome extension for passive security scanning. 55+ checks, four-tier findings, runs locally. Open source.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://yansii.in">
   <meta name="twitter:card" content="summary_large_image">
@@ -142,8 +142,9 @@
     .pi h3{font-size:12.5px;font-weight:600}
 
     /* ═══ THREE-TIER CARDS ═══ */
-    .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    @media(max-width:760px){.tier-grid{grid-template-columns:1fr}}
+    .tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media(max-width:860px){.tier-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:500px){.tier-grid{grid-template-columns:1fr}}
     .tier-card{border-radius:14px;padding:22px;background:var(--card);border:1px solid var(--brd);position:relative}
     .tier-num{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.05em;padding:3px 9px;border-radius:5px;display:inline-block;margin-bottom:12px}
     .tier-card.t1 .tier-num{background:rgba(139,148,158,.12);color:var(--gray)}
@@ -308,7 +309,7 @@
         Free &amp; open source · No account needed · Chrome extension
       </div>
       <h1>Security testing copilot<br><span class="grad">for your browser</span></h1>
-      <p class="hero-sub">A Chrome extension that scans pages for security issues as you browse. <strong>46 passive checks.</strong> Findings are shown as potential indicators or observed facts — never treated as confirmed unless there's evidence. Runs entirely on your device.</p>
+      <p class="hero-sub">A Chrome extension that scans pages for security issues as you browse. <strong>55+ passive checks.</strong> Findings are shown as potential indicators or observed facts — never treated as confirmed unless there's evidence. Runs entirely on your device.</p>
       <div class="hero-ctas">
         <a href="https://chromewebstore.google.com/detail/igajpjenoffcjchckpglhhofippeoenf" target="_blank" rel="noopener" class="btn btn-p">
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
@@ -319,7 +320,7 @@
           View on GitHub
         </a>
       </div>
-      <p class="hero-note">v2.2.0 · Chrome Web Store · No telemetry</p>
+      <p class="hero-note">v3.0.0 · Chrome Web Store · No telemetry</p>
     </div>
 
     <div class="term-wrap">
@@ -366,7 +367,7 @@
     <div class="rv">
       <p class="slabel">What it is</p>
       <h2 id="whatis-h" class="stitle">Plainly, what YANSII<span style="color:#484f58">™</span> does</h2>
-      <p class="whatis">YANSII is a Chrome extension for testing the security of web applications. The <strong>free tier is a passive scanner</strong> — it runs 46 checks as you browse and shows findings as either a <strong>potential indicator</strong> (a pattern worth a manual look) or an <strong>observed fact</strong> (something directly verifiable, like a missing header). It doesn't exploit anything or claim a vulnerability is confirmed unless there's evidence for it. Think of it as a second pair of eyes on the page you're already looking at — not an autonomous scanner making decisions for you.</p>
+      <p class="whatis">YANSII is a Chrome extension for testing the security of web applications. The <strong>free tier is a passive scanner</strong> — it runs 55+ checks as you browse and shows findings as either a <strong>potential indicator</strong> (a pattern worth a manual look) or an <strong>observed fact</strong> (something directly verifiable, like a missing header). It doesn't exploit anything or claim a vulnerability is confirmed unless there's evidence for it. Think of it as a second pair of eyes on the page you're already looking at — not an autonomous scanner making decisions for you.</p>
     </div>
   </div>
 </section>
@@ -399,23 +400,28 @@
     <div class="rv">
       <p class="slabel">How findings are shown</p>
       <h2 id="tiers-h" class="stitle">A finding is labeled by how sure we are — not inflated to look scarier</h2>
-      <p class="sdesc">A finding is only as useful as your trust in it. YANSII separates what's <em>possible</em> from what's <em>observed</em> from what's <em>confirmed</em>, so you know how much weight to give each line before you spend time on it.</p>
+      <p class="sdesc">A finding is only as useful as your trust in it. YANSII uses a four-tier confidence system so you know how much weight to give each line before you spend time on it.</p>
     </div>
     <div class="tier-grid">
-      <div class="tier-card t1 rv">
-        <span class="tier-num">POTENTIAL</span>
-        <h3>Pattern-based indicator</h3>
-        <p>A passive check matched something that's often worth investigating — shown in grey, collapsed by default, never given a severity color until it's verified.</p>
+      <div class="tier-card t3 rv">
+        <span class="tier-num">CONFIRMED</span>
+        <h3>Deterministically validated</h3>
+        <p>Evidence-backed finding with proof — a response diff, exploitable context, or verifiable misconfiguration. Gets a real severity rating.</p>
       </div>
       <div class="tier-card t2 rv rv-d1">
-        <span class="tier-num">OBSERVED</span>
-        <h3>Directly verifiable fact</h3>
-        <p>Something the page itself confirms with no interpretation needed — a missing security header, an insecure cookie flag, an exposed endpoint.</p>
+        <span class="tier-num">LIKELY</span>
+        <h3>Strong signals</h3>
+        <p>High confidence — multiple indicators align. Worth testing immediately, likely to be real.</p>
       </div>
-      <div class="tier-card t3 rv rv-d2">
-        <span class="tier-num">CONFIRMED<span class="tier-badge-mini">PRO</span></span>
-        <h3>Evidence-backed finding</h3>
-        <p>Active validation captures proof — a response diff showing another party's data, for example. Only confirmed findings get a real severity rating.</p>
+      <div class="tier-card t1 rv rv-d2">
+        <span class="tier-num">POSSIBLE</span>
+        <h3>Needs manual verification</h3>
+        <p>Indicators present but not enough evidence for confidence. Worth a manual look before reporting.</p>
+      </div>
+      <div class="tier-card rv rv-d3" style="border-color:var(--brd)">
+        <span class="tier-num" style="background:rgba(139,148,158,.08);color:var(--dim)">NOISE</span>
+        <h3>Informational only</h3>
+        <p>Low confidence, informational. Collapsed by default — visible when you need the full picture.</p>
       </div>
     </div>
   </div>
@@ -441,13 +447,16 @@
           <span class="tt-price">$0 forever</span>
         </div>
         <ul class="fl">
-          <li><span class="ck">✓</span><span><span class="fn">46 passive vulnerability scanners</span> — run automatically as you browse</span></li>
-          <li><span class="ck">✓</span><span><span class="fn">Three-tier findings</span> — potential indicators and observed facts, clearly separated</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">55 passive vulnerability scanners</span> — run automatically as you browse</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Four-tier confidence system</span> — Confirmed, Likely, Possible, Noise — clearly separated</span></li>
           <li><span class="ck">✓</span><span><span class="fn">Security header, cookie &amp; CORS auditing</span></span></li>
-          <li><span class="ck">✓</span><span><span class="fn">Dashboard</span> — domain grouping, severity filters, search</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Confidence Gate dashboard</span> — Confirmed / Signals / All tabs, domain grouping, severity filters</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Recon Intelligence tab</span> — endpoints, tech stack, cookies, headers, forms, JS files</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">AI-Ready Fix Prompts</span> — copy contextual remediation prompts for AI coding assistants</span></li>
           <li><span class="ck">✓</span><span><span class="fn">Side panel + DevTools panel</span></span></li>
-          <li><span class="ck">✓</span><span><span class="fn">Crawler</span> — configurable depth and speed</span></li>
-          <li><span class="ck">✓</span><span><span class="fn">Export</span> — JSON and Markdown</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Crawler</span> — configurable depth and speed, robots.txt compliance</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Export</span> — JSON, CSV, and Markdown</span></li>
+          <li><span class="ck">✓</span><span><span class="fn">Safe Mode</span> — enabled by default, passive-only until you choose otherwise</span></li>
           <li><span class="ck">✓</span><span><span class="fn">Scope enforcement</span> — wildcard matching, won't wander off-target</span></li>
           <li><span class="ck">✓</span><span><span class="fn">Noise filtering</span> — analytics and CDN domains filtered out automatically</span></li>
           <li><span class="ck">✓</span><span><span class="fn">Activity log</span> — real-time, filterable, exportable</span></li>
@@ -477,15 +486,20 @@
         </div>
 
         <ul class="pro-list">
+          <li><span class="dot"></span><span><span class="fn">68 total scanners</span> — 55 free + 13 Pro-only</span></li>
+          <li><span class="dot"></span><span><span class="fn">Intelligence Layer</span> — Application Model, Hypothesis Engine, Chain Synthesis, Adaptive Scanning, Session Memory, Impact Assessment — all running locally</span></li>
+          <li><span class="dot"></span><span><span class="fn">6 Framework Deep Scanners</span> — Firebase, GraphQL, Next.js, WordPress, Laravel, Drupal</span></li>
+          <li><span class="dot"></span><span><span class="fn">Deterministic Validation</span> — code-level exploitability checking, auto-suppresses false positives</span></li>
+          <li><span class="dot"></span><span><span class="fn">Custom Scanner Rules</span> — JSON-based, import/export</span></li>
+          <li><span class="dot"></span><span><span class="fn">CVSS 3.1 Scoring &amp; Bounty Estimation</span></span></li>
           <li><span class="dot"></span><span><span class="fn">AI Copilot</span> — real-time suggestions using your own API key</span></li>
           <li><span class="dot"></span><span><span class="fn">Active validation</span> — promotes findings to "confirmed" with captured evidence</span></li>
           <li><span class="dot"></span><span><span class="fn">Request Replay</span> — modify and resend captured requests</span></li>
           <li><span class="dot"></span><span><span class="fn">Access Control Testing</span> — compare behavior across roles</span></li>
           <li><span class="dot"></span><span><span class="fn">Parameter Discovery</span> — probe for hidden params and headers</span></li>
-          <li><span class="dot"></span><span><span class="fn">GraphQL Scanner</span> — introspection and auth comparison</span></li>
-          <li><span class="dot"></span><span><span class="fn">Report Builder</span> — scope-aware, ready for a triager</li>
+          <li><span class="dot"></span><span><span class="fn">Report Builder</span> — HackerOne/Bugcrowd templates, SARIF export</span></li>
           <li><span class="dot"></span><span><span class="fn">Claude Code Bridge</span> — connect an AI agent to your browser session (localhost only) <span style="font-size:11px;color:var(--dim)">(paid Pro only — not in trial)</span></span></li>
-          <li><span class="dot"></span><span><span class="fn">Ranked lead board</span> — findings ranked by class and confirmability, with a suggested test for each</span></li>
+          <li><span class="dot"></span><span><span class="fn">Scanner Graph</span> — event-driven trigger chains between scanners</span></li>
         </ul>
 
         <div class="trial-note">
@@ -516,7 +530,7 @@
     </div>
     <div class="steps">
       <div class="step rv"><div class="sn" aria-hidden="true">1</div><h3>Install</h3><p>Add it from the Chrome Web Store. No account, no setup.</p></div>
-      <div class="step rv rv-d1"><div class="sn" aria-hidden="true">2</div><h3>Browse</h3><p>46 scanners run passively as you navigate your target.</p></div>
+      <div class="step rv rv-d1"><div class="sn" aria-hidden="true">2</div><h3>Browse</h3><p>55+ scanners run passively as you navigate your target. Pro's Intelligence Layer learns and adapts as you go.</p></div>
       <div class="step rv rv-d2"><div class="sn" aria-hidden="true">3</div><h3>Review</h3><p>Open the side panel — see findings grouped by tier and severity.</p></div>
       <div class="step rv rv-d3"><div class="sn" aria-hidden="true">4</div><h3>Export</h3><p>Pull results as JSON or Markdown for your own notes or report.</p></div>
     </div>
@@ -538,24 +552,32 @@
         <thead><tr><th></th><th>Free</th><th class="tp">Pro</th></tr></thead>
         <tbody>
           <tr class="cat"><td colspan="3">CORE</td></tr>
-          <tr><td>46 passive scanners</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Three-tier findings</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Dashboard + side panel</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Crawler + exports</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Scope enforcement + noise filtering</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>55 passive scanners</td><td><span class="ck">✓</span></td><td><span class="ck">68 total</span></td></tr>
+          <tr><td>Four-tier confidence system</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Confidence Gate dashboard + Recon Intel</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Crawler + exports (JSON, CSV, MD)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>AI-Ready Fix Prompts</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Safe Mode (default on)</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+          <tr class="cat"><td colspan="3">INTELLIGENCE LAYER</td></tr>
+          <tr><td>Application Model + Hypothesis Engine</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Chain Synthesis + Adaptive Scanning</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Session Memory + Impact Assessment</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>CVSS 3.1 scoring + bounty estimation</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Deterministic Validation</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Custom Scanner Rules</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Scanner Graph (trigger chains)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr class="cat"><td colspan="3">AI + VALIDATION</td></tr>
           <tr><td>AI Copilot (BYOK)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr><td>Active validation (evidence)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Ranked lead board</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>6 Framework Deep Scanners</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr class="cat"><td colspan="3">ACTIVE TESTING</td></tr>
           <tr><td>Request Replay</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr><td>Access Control Testing</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr><td>Parameter Discovery</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>GraphQL Scanner</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr class="cat"><td colspan="3">WORKFLOW</td></tr>
-          <tr><td>Report Builder</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Report Builder (HackerOne / Bugcrowd)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
           <tr><td>Claude Code Bridge (MCP) <span style="font-size:10.5px;color:var(--dim)">(paid Pro only)</span></td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
-          <tr><td>Advanced exports (CSV, SARIF, PoC)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
+          <tr><td>Advanced exports (SARIF, enhanced MD)</td><td><span class="ds">—</span></td><td><span class="ck">✓</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -580,14 +602,14 @@
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
         Add to Chrome — it's free
       </a>
-      <a href="https://github.com/Yansii-dev/yansii-free/releases/tag/v2.2.0" target="_blank" rel="noopener" class="btn btn-s">
+      <a href="https://github.com/Yansii-dev/yansii-free/releases/tag/v3.0.0" target="_blank" rel="noopener" class="btn btn-s">
         Manual install from GitHub
       </a>
     </div>
     <div class="ib rv">
       <h4>Prefer manual install? (about 2 minutes)</h4>
       <ol>
-        <li>Download <code>yansii-v2.2.0-free.zip</code> from the latest GitHub release <span style="color:var(--dim);font-size:10px">(147 KB)</span></li>
+        <li>Download <code>yansii-v3.0.0-free.zip</code> from the latest GitHub release</li>
         <li>Unzip it to a folder</li>
         <li>Open <code>chrome://extensions</code> and enable Developer mode (toggle, top right)</li>
         <li>Click <code>Load unpacked</code> and select the unzipped folder</li>
@@ -609,7 +631,7 @@
     <div class="faq-list">
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Is it really free?</summary>
-        <p class="faq-a">Yes. The passive scanner — 46 checks, dashboard, crawler, exports — is free and open source, forever. It's not a limited trial of something else.</p>
+        <p class="faq-a">Yes. The passive scanner — 55 checks, Confidence Gate dashboard, Recon Intelligence, crawler, exports — is free and open source, forever. It's not a limited trial of something else.</p>
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Does it send my data anywhere?</summary>
@@ -617,7 +639,7 @@
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>What's the difference between free and Pro?</summary>
-        <p class="faq-a">Free is a passive scanner — it shows potential indicators and observed facts. Pro adds active validation (which promotes findings to confirmed with evidence), an AI copilot, request replay, and several more testing tools.</p>
+        <p class="faq-a">Free is a 55-scanner passive scanner with the Confidence Gate dashboard, Recon Intelligence, and AI-Ready Fix Prompts. Pro adds 13 more scanners (68 total), the Intelligence Layer (application modeling, hypothesis engine, attack chains, adaptive scanning, session memory, CVSS scoring), 6 framework deep scanners, deterministic validation, custom scanner rules, AI copilot, and advanced testing tools.</p>
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>How does the Pro trial work?</summary>
@@ -625,7 +647,7 @@
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Do AI features cost extra?</summary>
-        <p class="faq-a">AI features use your own API key (bring your own key) with Anthropic, OpenAI, Groq, or OpenRouter — you pay them directly for usage. YANSII doesn't add a markup; the only YANSII charge is the Pro subscription itself. Typical API cost is $5–15/month. All 46 free-tier scanners work without any API key.</p>
+        <p class="faq-a">AI features use your own API key (bring your own key) with Anthropic, OpenAI, Groq, or OpenRouter — you pay them directly for usage. YANSII doesn't add a markup; the only YANSII charge is the Pro subscription itself. Typical API cost is $5–15/month. All 55 free-tier scanners and the Intelligence Layer work without any API key.</p>
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Do I need an account?</summary>
@@ -634,6 +656,18 @@
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Is it open source?</summary>
         <p class="faq-a">The free tier is fully open source on GitHub, licensed under BSL 1.1. It collects zero telemetry — you can verify that directly in the source.</p>
+      </details>
+      <details class="faq-item rv">
+        <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>What is the Intelligence Layer?</summary>
+        <p class="faq-a">The Intelligence Layer is a 6-component reasoning engine that runs entirely in your browser. It builds a model of the target application, generates vulnerability hypotheses, links findings into attack chains, adapts scanner priorities to the target, remembers patterns across sessions, and scores impact with CVSS 3.1. All processing is local — no data leaves your device. It does NOT call any AI provider API.</p>
+      </details>
+      <details class="faq-item rv">
+        <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Does the Intelligence Layer use AI API calls?</summary>
+        <p class="faq-a">No. The Intelligence Layer uses deterministic algorithms, pattern matching, and Bayesian inference — all running locally in your browser. The AI Copilot (which does use your API key) is a separate feature.</p>
+      </details>
+      <details class="faq-item rv">
+        <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>What data does Session Memory store?</summary>
+        <p class="faq-a">Anonymized technical patterns only: target archetypes (e.g., "React SPA with JWT auth behind Cloudflare"), WAF bypass effectiveness data, vulnerability class frequencies, and calibration data. No URLs, no credentials, no PII. Memory entries are capped at 500 with LRU eviction and decay after 6 months.</p>
       </details>
       <details class="faq-item rv">
         <summary class="faq-s"><span class="faq-t" aria-hidden="true">+</span>Is it safe to use?</summary>
