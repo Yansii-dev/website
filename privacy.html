@@ -69,7 +69,7 @@
   <main>
     <p class="label">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="date">Last updated: October 16, 2026</p>
+    <p class="date">Last updated: November 5, 2026</p>
     <div class="prose">
       <h2>1. Who we are</h2>
       <p>YANSII ("we", "us", "our") is an AI-assisted security testing Chrome extension created by an independent developer. This policy covers the YANSII browser extension (v3.0.0+) and the yansii.in website.</p>
@@ -99,6 +99,7 @@
         <li>CVSS scores or bounty estimates</li>
         <li>Custom scanner rules</li>
         <li>Report contents</li>
+        <li>Captured HTTP traffic (stored locally with AES-GCM encryption)</li>
       </ul>
 
       <h2>4. Browser permissions</h2>
@@ -148,41 +149,52 @@
       <h2>9. Scanner Graph (Pro)</h2>
       <p>Scanners can trigger other scanners based on findings (e.g., detecting GraphQL triggers the GraphQL deep scanner). This is event-driven automation running locally. No external data transmission.</p>
 
-      <h2>10. Dashboard</h2>
+      <h2>10. HTTP Traffic Capture (Pro)</h2>
+      <p>YANSII v3.1 can capture HTTP request and response metadata for websites within your authorized testing scope. Captured data includes URLs, headers, status codes, and request/response bodies. All captured data is:</p>
+      <ul>
+        <li>Stored locally in your browser using encrypted IndexedDB storage (AES-GCM)</li>
+        <li>Never transmitted to external servers</li>
+        <li>Automatically pruned when storage limits are reached (10,000 requests per domain)</li>
+        <li>Authentication tokens and credentials are redacted before storage</li>
+        <li>Cleared when you use the "Clear Data" function</li>
+      </ul>
+      <p>This feature operates only after you have given explicit consent and defined an authorized testing scope.</p>
+
+      <h2>11. Dashboard</h2>
       <p>The extension dashboard has 7 tabs: Findings, Recon Intel (endpoints, tech stack, cookies, headers, forms, JS files, subresources), Hypotheses (Pro), Attack Chains (Pro), Adaptive Scanning (Pro), Impact Assessment (Pro), and Session Memory (Pro). All dashboard data is derived from local scan results and stored in <code>chrome.storage.local</code>.</p>
 
-      <h2>11. Safe Mode</h2>
+      <h2>12. Safe Mode</h2>
       <p>Safe Mode is enabled by default on fresh installs, limiting the extension to passive-only scanning until you explicitly enable active features.</p>
 
-      <h2>12. Data storage</h2>
-      <p>All extension data — scan findings, settings, Intelligence Layer data (application models, hypotheses, attack chains, adaptive scanning weights, session memory, impact assessments), custom scanner rules, and reports — is stored in <code>chrome.storage.local</code>. Clear it by uninstalling or clearing extension storage. Memory patterns use 6-month decay, capped at 500 via LRU.</p>
+      <h2>13. Data storage</h2>
+      <p>All extension data — scan findings, settings, Intelligence Layer data (application models, hypotheses, attack chains, adaptive scanning weights, session memory, impact assessments), custom scanner rules, captured HTTP traffic, and reports — is stored locally in your browser using <code>chrome.storage.local</code> and encrypted IndexedDB. Clear it by uninstalling or clearing extension storage. Memory patterns use 6-month decay, capped at 500 via LRU.</p>
 
-      <h2>13. Third-party services</h2>
+      <h2>14. Third-party services</h2>
       <ul>
         <li><span>AI providers</span> (Anthropic, OpenAI, Groq, OpenRouter) — only when you activate the copilot</li>
         <li><span>Dodo Payments</span> — Pro billing and license keys</li>
         <li><span>Chrome Web Store</span> — distribution</li>
       </ul>
 
-      <h2>14. Website analytics</h2>
+      <h2>15. Website analytics</h2>
       <p>yansii.in may use privacy-friendly analytics (e.g. Plausible) with no cookies and no personal data. No advertising trackers.</p>
 
-      <h2>15. Children's privacy</h2>
+      <h2>16. Children's privacy</h2>
       <p>YANSII is a professional tool not intended for anyone under 18.</p>
 
-      <h2>16. Data transfers</h2>
+      <h2>17. Data transfers</h2>
       <p>We don't transfer your data because we don't have it. AI data flows directly to provider servers, governed by their terms.</p>
 
-      <h2>17. Accessibility</h2>
+      <h2>18. Accessibility</h2>
       <p>YANSII is committed to accessibility. The extension dashboard includes ARIA labels and keyboard navigation support for assistive technologies.</p>
 
-      <h2>18. Your rights</h2>
+      <h2>19. Your rights</h2>
       <p>Since we don't store personal data beyond an optional email, exercise your rights by clearing extension storage. To remove your email, contact us at <a href="mailto:hello@yansii.in">hello@yansii.in</a>.</p>
 
-      <h2>19. Changes</h2>
+      <h2>20. Changes</h2>
       <p>Material changes announced via changelog, website, and email. The date at top reflects the latest revision.</p>
 
-      <h2>20. Contact</h2>
+      <h2>21. Contact</h2>
       <ul>
         <li>Email: <a href="mailto:hello@yansii.in">hello@yansii.in</a></li>
         <li>Feedback: <a href="https://www.yansii.in/feedback">Submit feedback</a></li>
